@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>战线 · 编辑器</title>
+<title>战线 1914 · 编辑器 v1.1</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:#241f1a;color:#e8dfc9;
@@ -73,11 +73,12 @@ select{background:#1f1b16;color:#e8dfc9;border:1px solid #5a5044;border-radius:3
 <body>
 <div id="app">
   <header>
-    <b>战线编辑器</b>
+    <b>战线 1914 编辑器</b>
     <span class="hint" id="src">载入中…</span>
     <span class="sp"></span>
     <button id="bLoad">从游戏载入</button>
     <button id="bFile">打开 JSON</button>
+    <button id="bUndo">撤销</button>
     <button class="pri" id="bSave">保存并应用</button>
     <button id="bDown">导出 JSON</button>
     <button class="warn" id="bReset">还原默认</button>
@@ -96,16 +97,16 @@ select{background:#1f1b16;color:#e8dfc9;border:1px solid #5a5044;border-radius:3
     <div class="pane on" id="p-units"></div>
     <div class="pane" id="p-map"></div>
     <div class="pane" id="p-fac"></div>
-    <div class="pane" id="p-fac"></div>
     <div class="pane" id="p-rules"></div>
     <div class="pane" id="p-sim"></div>
   </div>
 </div>
 <div id="msg"></div>
-<script type="application/json" id="GD">{"meta":{"cols":64,"rows":64,"maxt":16,"gthr":30,"name":"比利时战役 1914"},"units":{"inf":{"n":"步兵师","atk":4,"def":5,"mv":4,"rg":1,"stg":100,"mor":4,"sym":"inf","cost":4},"cav":{"n":"骑兵师","atk":5,"def":3,"mv":6,"rg":1,"stg":80,"mor":3,"sym":"cav","cost":3},"art":{"n":"炮兵","atk":6,"def":2,"mv":3,"rg":3,"mr":2,"stg":60,"mor":3,"sym":"art","cost":3}},"terrain":{"p":{"n":"平原","f":"#e3d9bf","def":1,"mv":1},"f":{"n":"森林","f":"#6d7a52","def":1.3,"mv":2},"m":{"n":"圩田","f":"#b8b08c","def":1.1,"mv":3},"t":{"n":"城镇","f":"#a3968a","def":1.5,"mv":1},"F":{"n":"要塞","f":"#8a7a6a","def":1.45,"mv":1},"r":{"n":"河流","f":"#8fa9b4","def":1,"mv":99},"b":{"n":"桥梁","f":"#c9b28a","def":0.9,"mv":1}},"crt":[["A","A","A","EX","EX","D"],["A","A","EX","EX","D","D"],["A","EX","EX","D","D","DD"],["EX","EX","D","D","DD","DD"],["EX","D","D","DD","DD","DD"],["D","D","DD","DD","DD","DD"]],"rules":{"segs":[{"min":75,"mult":1,"name":"满编"},{"min":50,"mult":0.8,"name":"减员"},{"min":25,"mult":0.6,"name":"残破"},{"min":0,"mult":0.4,"name":"濒危"}],"bands":[{"min":5,"name":"高","ic":"▲","col":"#4c7a43","def":1.1,"atk":true},{"min":3,"name":"中","ic":"●","col":"#b98a2e","def":1,"atk":true},{"min":1,"name":"低","ic":"▼","col":"#d0553f","def":0.85,"atk":false},{"min":0,"name":"溃散","ic":"✖","col":"#7a1f1a","def":0.7,"atk":false}],"lossPct":{"A":18,"D":18,"EX":18,"DD":45},"lossVar":2,"morPerSeg":1,"retreatBase":2,"retreatWound":2,"retreatLow":2,"routPct":10,"rangedShift":1,"colThresh":[0.6,0.9,1.4,2.2,3.2]},"cities":[{"c":20,"r":4,"n":"安特卫普","w":3},{"c":10,"r":10,"n":"布鲁日","w":2},{"c":18,"r":14,"n":"根特","w":2},{"c":26,"r":22,"n":"布鲁塞尔","w":4},{"c":34,"r":14,"n":"鲁汶","w":2},{"c":26,"r":12,"n":"马利纳","w":2},{"c":46,"r":26,"n":"列日","w":3,"fort":true},{"c":46,"r":40,"n":"那慕尔","w":3,"fort":true},{"c":34,"r":44,"n":"沙勒罗瓦","w":2},{"c":14,"r":46,"n":"蒙斯","w":3}],"deploy":{"blue":[{"t":"inf","n":14,"z":[42,46,12,48]},{"t":"inf","n":6,"z":[36,40,14,46]},{"t":"cav","n":4,"z":[34,38,16,44]},{"t":"art","n":4,"z":[30,34,18,42]},{"t":"inf","n":2,"z":[26,30,20,32]}],"red":[{"t":"inf","n":20,"z":[50,57,4,60]},{"t":"inf","n":10,"z":[52,60,4,60]},{"t":"cav","n":5,"z":[56,61,4,60]},{"t":"art","n":5,"z":[58,63,4,60]}]},"map":["mmfffpppmppmmpmffffpmmpmpppmpppppppmpmpppmpmmprmppmmmppmpmmpffpm","pfffpppmppppppfffmffmpmpmppppmpmmpppmfmpppmmmmrppppppppmmpppfpff","ffpffmpppmpmmffffmfpmmppmppmpppfmpppmpfpppmppmrmppmpppmpmppmmffm","pffppmpppmppppfffppmmppppppmppfmfppmmmmpppmppprpmppppppmppppppmp","fffpmpppmmpppppfmmpptpppppmpmfmfffpmpmpppmmmpmrmpmmmpppppmmpmmfp","mfffppmpmppmmmpppmmppmpmppppmmfffpppppppmpmppmrmmpppmppmmppppmff","mfpppppppppppppmppppfpmmpppppfrfffmpmmmppppmpprpmpmpppppppppffff","pppmppmppmpmpmmppmpmfmpmmpppmmrmfppmpmpmppfppmrmmmpppppppfmppmfp","pmpppmpppmpmpmppppmpfffmpmmmpfrfppppmpmppfffppbmmpmpppmmfffmppfp","ppmmmmppppmpppppmmmfffpppppmfprmppppmpmppmfppmrppmpmmpmppfpppmmm","rrrrrrrrrrtrrrrrrrbrrrrrrrrrrrbrrrrrrrrrrrrfmprppmpppmpmppmppppm","pmmmmppppppmpmmpmmppppppmmppffrpmppfmppppmfppprppppppppppmmpmppm","mmppmpmpppmpmpmppppppppmpptmpfrmppmffmpppppppprpmmmppmpmpppmmmpm","pppppppppppppppppppppppppppppprpppppppfppppppprppppppppppppppppp","pppppppppppppppppptppppppppppprppptppppfpppppprpppppppppfppppppp","pppppppppppppppppppppppppppppprppppppfffffpppprpppppppppfppppppp","pppppppppppppppppppppppppppppprpppppppfppppppprpppppppffffpppppf","pppppppppppppppppppppppppppppprpppppppffpppppprpppppppppffppppfp","pppppppppppppppppppfpppppppppprpppppppffpppppprpppppppppfpppppfp","ppppppppppppppppppffppppppppffrpppppffffpppppprpppppppppppppfpfp","pppppppppppppppppppfpppppppffprfpppppffppppppprppppppppppppfpfpf","pppppppppppppppppppfppppppppffrpppppppfppppppprpppppppppppfpppfp","ppppppppppppppppppfffppppptppfbppppfpppppppppprppppppppppppfpfpp","pppppppppppppppppfffffpppppppprpppfffppppppppprppppppppppppppfff","ppppppppppppppppppffpppppppppprppfpfffpppppppprpppppppppfppppfpf","pppppppppppppppppppfpppppppppprpppfpfppppppppprppppppppppfpppfff","ppppppppppppppppfpfppppppppppprppfffppppppppppFpppppppppppppppfp","pppppppppppppppppppppppppppppprpppfppppppppppprppfpppppppppppppp","ppppfpfppppppppppppppppppppppprppppppfpppppppprppffppppppppppppp","pppfpfpppppppppppppppppppppppprppppppfpppppppprfffffpppppfpppppp","ppppfffppppppppppfffppppppfffprppppppfpppppppprpfffpppppfffppppp","ppppffppppppppppppfpfppppppppprppppppppppppppprppfppppppfppfpppp","pppppppppppppppfppppfppppppppfrppppppfpppppfpprpfpfppfffffffpffp","ppppppppppppppfpfpppfffppppppfrppppppffppppfpprfffpfpffpffffpffp","ppppppppppppppffpfpffppppppfppbfppppfppffpppffrffffppfpfpffpffpp","ppppppppppppppffffppfpppppppffrpppfpppfppppfpfrffpfppfpppppffffp","ppppppppppppppffffpppppppppfffrfpfpppfpppfppfprpppffpffpppffffpf","ppppppppppppppppfppppppppppppfrpfffffpfppffpfprfpfppfffffpfpfppf","ppppppppppppppppfppppppppppppprpppfffppppfpfpfrffffpppfppfpppfpf","ppppppppppppppppppppppppppppppppppffpfpfpppppprfffffpppfpffffffp","pppppfpppppppppppppppppppppppppppppfpppppppfppFffpffppfffffpffff","ppppfffppppppppppppppppppppppppppppppfppppffpfrffppppffpfffpfpfp","pppfffffpppppppppppppppppppppppppppfppppfppppfrpffppppffffppffpp","ppppfpppfpppppppppppppppppppppppppfpppppfppffprpfpfpffppppfppppp","pppppppfffpppppppppppppppppppppppftfpfpppppppfrfppfpffpppfpfppfp","ppppppppfppppppppppppppppfppppppffpffpppppfppfrpfpfpppfpfpffffff","rrrrrrrrrrrrrrtrrrrrrrrrrrbrrrrrrrrrrrbrrrrrrrrfffffffpfppfppfpp","ppppppppppfffppppppppppfffffppppppfpfffppfpfpfrppppfpppfffffffff","pppppppppppfpfppppppppppfffpppppppppppfpfpffpprffppfppppffpfffpf","ppppppppppppfffppppppppppfppppppppfppfpfpfpfffrfpfpfpppppfffppff","pppppppppppfpppfppppppppppppppppppfppfppffpfffrffffffppppfppppff","ppppppppppppfffpppppppppppppppppppppfpfpffppffrffffffpppfpffffff","ppppppppppppfffppfppppppppppppppppppppfpfffpffrpfpfpfffffpfpfffp","pppppppppppppfpppfpppppppppppppppppfpppfppfffprpfpfffffffpfppfff","ppppppppppppppppppppppppppppppppppfpffpppfpfffbfpffppfpfpffpffpf","pppppppppppppppppppppppppppppppppppffppffffppprpfffpffppfffffpff","ppppppppppppppppppppppppppppppppppfppppfpfppffrfpfpfpffffffffffp","ppppppppppppppppppppppppppppppppppfppppppffppprpfpfpffpffffffppp","pppppppppppppppppppppppppppppppppppppfffffffpprppppffpffffffpppp","pppppfppppppppppppppppppppppppppppffppppfpfffprpffpffffffffpffpf","ppppfffppppppppppfpppppppppppffpppffpffpffpfpfrpfppffffffppfpfff","pppppfppppppppppfffppppppfpppfppppppfpfppfffffrfffppffppfpfpfppf","pppppppppppppppfffffppppffppppppppffpfppfppfffrfffpfffpfpfffffff","ppppppppppppppppppfppppfffpfpppppppppffpfffpfprffffpfpfffpffffpp"],"oob":{"blue":[{"t":"inf","c":43,"r":12},{"t":"inf","c":42,"r":14},{"t":"inf","c":40,"r":15},{"t":"inf","c":39,"r":16},{"t":"cav","c":34,"r":17},{"t":"inf","c":42,"r":17},{"t":"art","c":33,"r":18},{"t":"inf","c":38,"r":19},{"t":"inf","c":42,"r":19},{"t":"inf","c":44,"r":19},{"t":"inf","c":42,"r":21},{"t":"cav","c":38,"r":23},{"t":"inf","c":26,"r":25},{"t":"inf","c":46,"r":26},{"t":"cav","c":38,"r":28},{"t":"inf","c":39,"r":28},{"t":"inf","c":26,"r":31},{"t":"inf","c":37,"r":31},{"t":"inf","c":43,"r":31},{"t":"cav","c":37,"r":32},{"t":"inf","c":42,"r":32},{"t":"art","c":31,"r":33},{"t":"art","c":30,"r":34},{"t":"art","c":34,"r":34},{"t":"inf","c":39,"r":34},{"t":"inf","c":42,"r":34},{"t":"inf","c":42,"r":37},{"t":"inf","c":44,"r":40},{"t":"inf","c":46,"r":40},{"t":"inf","c":44,"r":44},{"t":"inf","c":45,"r":45},{"t":"inf","c":45,"r":47}],"red":[{"t":"inf","c":53,"r":6},{"t":"inf","c":57,"r":7},{"t":"inf","c":57,"r":9},{"t":"cav","c":60,"r":11},{"t":"inf","c":55,"r":12},{"t":"art","c":62,"r":18},{"t":"inf","c":52,"r":19},{"t":"inf","c":54,"r":22},{"t":"inf","c":55,"r":23},{"t":"art","c":58,"r":25},{"t":"inf","c":59,"r":28},{"t":"inf","c":56,"r":29},{"t":"inf","c":58,"r":30},{"t":"inf","c":50,"r":32},{"t":"inf","c":53,"r":32},{"t":"inf","c":60,"r":32},{"t":"inf","c":55,"r":33},{"t":"cav","c":59,"r":33},{"t":"inf","c":51,"r":34},{"t":"inf","c":54,"r":35},{"t":"art","c":61,"r":35},{"t":"inf","c":55,"r":37},{"t":"cav","c":57,"r":37},{"t":"inf","c":57,"r":39},{"t":"inf","c":55,"r":41},{"t":"inf","c":60,"r":42},{"t":"inf","c":55,"r":43},{"t":"cav","c":60,"r":43},{"t":"inf","c":53,"r":45},{"t":"cav","c":57,"r":45},{"t":"inf","c":53,"r":47},{"t":"inf","c":55,"r":49},{"t":"inf","c":50,"r":50},{"t":"art","c":63,"r":50},{"t":"inf","c":53,"r":51},{"t":"inf","c":56,"r":53},{"t":"inf","c":53,"r":55},{"t":"inf","c":55,"r":56},{"t":"inf","c":53,"r":57},{"t":"art","c":63,"r":60}]},"symList":["inf","cav","arm","art","mg","recon","hq","dot"],"recruit":{"base":3,"perTurnCap":8,"moralePenalty":1,"storage":60},"factions":[{"id":"blue","name":"协约国","short":"协约","color":"#1f3a63","shape":"rect","team":"ally","player":true,"mp":6,"cap":40,"base":3,"rear":[0,26,0,63]},{"id":"red","name":"德意志帝国","short":"德军","color":"#7a1f1a","shape":"diamond","team":"central","player":false,"mp":6,"cap":60,"base":4,"rear":[56,63,0,63]}]}</script>
+<script type="application/json" id="GD">{"meta":{"cols":64,"rows":64,"maxt":16,"gthr":10,"name":"比利时战役 1914"},"units":{"inf":{"n":"步兵师","atk":4,"def":5,"mv":4,"rg":1,"stg":100,"mor":4,"sym":"inf","cost":4},"cav":{"n":"骑兵师","atk":5,"def":3,"mv":6,"rg":1,"stg":80,"mor":3,"sym":"cav","cost":3},"art":{"n":"炮兵","atk":6,"def":2,"mv":3,"rg":3,"mr":2,"stg":60,"mor":3,"sym":"art","cost":3}},"terrain":{"p":{"n":"平原","f":"#e3d9bf","def":1,"mv":1},"f":{"n":"森林","f":"#6d7a52","def":1.3,"mv":2},"m":{"n":"圩田","f":"#b8b08c","def":1.1,"mv":3},"t":{"n":"城镇","f":"#a3968a","def":1.5,"mv":1},"F":{"n":"要塞","f":"#8a7a6a","def":1.45,"mv":1},"r":{"n":"河流","f":"#8fa9b4","def":1,"mv":99},"b":{"n":"桥梁","f":"#c9b28a","def":0.9,"mv":1}},"crt":[["A","A","A","EX","EX","D"],["A","A","EX","EX","D","D"],["A","EX","EX","D","D","DD"],["EX","EX","D","D","DD","DD"],["EX","D","D","DD","DD","DD"],["D","D","DD","DD","DD","DD"]],"rules":{"segs":[{"min":75,"mult":1,"name":"满编"},{"min":50,"mult":0.8,"name":"减员"},{"min":25,"mult":0.6,"name":"残破"},{"min":0,"mult":0.4,"name":"濒危"}],"bands":[{"min":5,"name":"高","ic":"▲","col":"#4c7a43","def":1.1,"atk":true},{"min":3,"name":"中","ic":"●","col":"#b98a2e","def":1,"atk":true},{"min":1,"name":"低","ic":"▼","col":"#d0553f","def":0.85,"atk":false},{"min":0,"name":"溃散","ic":"✖","col":"#7a1f1a","def":0.7,"atk":false}],"lossPct":{"A":18,"D":18,"EX":18,"DD":45},"lossVar":2,"morPerSeg":1,"retreatBase":2,"retreatWound":2,"retreatLow":2,"routPct":10,"rangedShift":1,"colThresh":[0.6,0.9,1.4,2.2,3.2],"artAssaultDef":0.5,"counterBatteryShift":1},"cities":[{"c":20,"r":4,"n":"安特卫普","w":3},{"c":10,"r":10,"n":"布鲁日","w":2},{"c":18,"r":14,"n":"根特","w":2},{"c":26,"r":22,"n":"布鲁塞尔","w":4,"capital":true},{"c":34,"r":14,"n":"鲁汶","w":2},{"c":26,"r":12,"n":"马利纳","w":2},{"c":46,"r":26,"n":"列日","w":3,"fort":true},{"c":46,"r":40,"n":"那慕尔","w":3,"fort":true},{"c":34,"r":44,"n":"沙勒罗瓦","w":2},{"c":14,"r":46,"n":"蒙斯","w":3}],"deploy":{"blue":[{"t":"inf","n":14,"z":[42,46,12,48]},{"t":"inf","n":6,"z":[36,40,14,46]},{"t":"cav","n":4,"z":[34,38,16,44]},{"t":"art","n":4,"z":[30,34,18,42]},{"t":"inf","n":2,"z":[26,30,20,32]}],"red":[{"t":"inf","n":20,"z":[50,57,4,60]},{"t":"inf","n":10,"z":[52,60,4,60]},{"t":"cav","n":5,"z":[56,61,4,60]},{"t":"art","n":5,"z":[58,63,4,60]}]},"map":["mmfffpppmppmmpmffffpmmpmpppmpppppppmpmpppmpmmprmppmmmppmpmmpffpm","pfffpppmppppppfffmffmpmpmppppmpmmpppmfmpppmmmmrppppppppmmpppfpff","ffpffmpppmpmmffffmfpmmppmppmpppfmpppmpfpppmppmrmppmpppmpmppmmffm","pffppmpppmppppfffppmmppppppmppfmfppmmmmpppmppprpmppppppmppppppmp","fffpmpppmmpppppfmmpptpppppmpmfmfffpmpmpppmmmpmrmpmmmpppppmmpmmfp","mfffppmpmppmmmpppmmppmpmppppmmfffpppppppmpmppmrmmpppmppmmppppmff","mfpppppppppppppmppppfpmmpppppfrfffmpmmmppppmpprpmpmpppppppppffff","pppmppmppmpmpmmppmpmfmpmmpppmmrmfppmpmpmppfppmrmmmpppppppfmppmfp","pmpppmpppmpmpmppppmpfffmpmmmpfrfppppmpmppfffppbmmpmpppmmfffmppfp","ppmmmmppppmpppppmmmfffpppppmfprmppppmpmppmfppmrppmpmmpmppfpppmmm","rrrrrrrrrrtrrrrrrrbrrrrrrrrrrrbrrrrrrrrrrrrfmprppmpppmpmppmppppm","pmmmmppppppmpmmpmmppppppmmppffrpmppfmppppmfppprppppppppppmmpmppm","mmppmpmpppmpmpmppppppppmpptmpfrmppmffmpppppppprpmmmppmpmpppmmmpm","pppppppppppppppppppppppppppppprpppppppfppppppprppppppppppppppppp","pppppppppppppppppptppppppppppprppptppppfpppppprpppppppppfppppppp","pppppppppppppppppppppppppppppprppppppfffffpppprpppppppppfppppppp","pppppppppppppppppppppppppppppprpppppppfppppppprpppppppffffpppppf","pppppppppppppppppppppppppppppprpppppppffpppppprpppppppppffppppfp","pppppppppppppppppppfpppppppppprpppppppffpppppprpppppppppfpppppfp","ppppppppppppppppppffppppppppffrpppppffffpppppprpppppppppppppfpfp","pppppppppppppppppppfpppppppffprfpppppffppppppprppppppppppppfpfpf","pppppppppppppppppppfppppppppffrpppppppfppppppprpppppppppppfpppfp","ppppppppppppppppppfffppppptppfbppppfpppppppppprppppppppppppfpfpp","pppppppppppppppppfffffpppppppprpppfffppppppppprppppppppppppppfff","ppppppppppppppppppffpppppppppprppfpfffpppppppprpppppppppfppppfpf","pppppppppppppppppppfpppppppppprpppfpfpppppppppbppppppppppfpppfff","ppppppppppppppppfpfppppppppppprppfffppppppppppFpppppppppppppppfp","pppppppppppppppppppppppppppppprpppfpppppppppppbppfpppppppppppppp","ppppfpfppppppppppppppppppppppprppppppfpppppppprppffppppppppppppp","pppfpfpppppppppppppppppppppppprppppppfpppppppprfffffpppppfpppppp","ppppfffppppppppppfffppppppfffprppppppfpppppppprpfffpppppfffppppp","ppppffppppppppppppfpfppppppppprppppppppppppppprppfppppppfppfpppp","pppppppppppppppfppppfppppppppfrppppppfpppppfpprpfpfppfffffffpffp","ppppppppppppppfpfpppfffppppppfrppppppffppppfpprfffpfpffpffffpffp","ppppppppppppppffpfpffppppppfppbfppppfppffpppffrffffppfpfpffpffpp","ppppppppppppppffffppfpppppppffrpppfpppfppppfpfrffpfppfpppppffffp","ppppppppppppppffffpppppppppfffrfpfpppfpppfppfprpppffpffpppffffpf","ppppppppppppppppfppppppppppppfrpfffffpfppffpfprfpfppfffffpfpfppf","ppppppppppppppppfppppppppppppprpppfffppppfpfpfrffffpppfppfpppfpf","ppppppppppppppppppppppppppppppppppffpfpfppppppbfffffpppfpffffffp","pppppfpppppppppppppppppppppppppppppfpppppppfppFffpffppfffffpffff","ppppfffppppppppppppppppppppppppppppppfppppffpfbffppppffpfffpfpfp","pppfffffpppppppppppppppppppppppppppfppppfppppfrpffppppffffppffpp","ppppfpppfpppppppppppppppppppppppppfpppppfppffprpfpfpffppppfppppp","pppppppfffpppppppppppppppppppppppftfpfpppppppfrfppfpffpppfpfppfp","ppppppppfppppppppppppppppfppppppffpffpppppfppfrpfpfpppfpfpffffff","rrrrrrrrrrrrrrtrrrrrrrrrrrbrrrrrrrrrrrbrrrrrrrrfffffffpfppfppfpp","ppppppppppfffppppppppppfffffppppppfpfffppfpfpfrppppfpppfffffffff","pppppppppppfpfppppppppppfffpppppppppppfpfpffpprffppfppppffpfffpf","ppppppppppppfffppppppppppfppppppppfppfpfpfpfffrfpfpfpppppfffppff","pppppppppppfpppfppppppppppppppppppfppfppffpfffrffffffppppfppppff","ppppppppppppfffpppppppppppppppppppppfpfpffppffrffffffpppfpffffff","ppppppppppppfffppfppppppppppppppppppppfpfffpffrpfpfpfffffpfpfffp","pppppppppppppfpppfpppppppppppppppppfpppfppfffprpfpfffffffpfppfff","ppppppppppppppppppppppppppppppppppfpffpppfpfffbfpffppfpfpffpffpf","pppppppppppppppppppppppppppppppppppffppffffppprpfffpffppfffffpff","ppppppppppppppppppppppppppppppppppfppppfpfppffrfpfpfpffffffffffp","ppppppppppppppppppppppppppppppppppfppppppffppprpfpfpffpffffffppp","pppppppppppppppppppppppppppppppppppppfffffffpprppppffpffffffpppp","pppppfppppppppppppppppppppppppppppffppppfpfffprpffpffffffffpffpf","ppppfffppppppppppfpppppppppppffpppffpffpffpfpfrpfppffffffppfpfff","pppppfppppppppppfffppppppfpppfppppppfpfppfffffrfffppffppfpfpfppf","pppppppppppppppfffffppppffppppppppffpfppfppfffrfffpfffpfpfffffff","ppppppppppppppppppfppppfffpfpppppppppffpfffpfprffffpfpfffpffffpp"],"oob":{"blue":[{"t":"inf","c":43,"r":12},{"t":"inf","c":42,"r":14},{"t":"inf","c":40,"r":15},{"t":"inf","c":39,"r":16},{"t":"cav","c":34,"r":17},{"t":"inf","c":42,"r":17},{"t":"art","c":33,"r":18},{"t":"inf","c":38,"r":19},{"t":"inf","c":42,"r":19},{"t":"inf","c":44,"r":19},{"t":"inf","c":42,"r":21},{"t":"cav","c":38,"r":23},{"t":"inf","c":26,"r":25},{"t":"inf","c":46,"r":26},{"t":"cav","c":38,"r":28},{"t":"inf","c":39,"r":28},{"t":"inf","c":26,"r":31},{"t":"inf","c":37,"r":31},{"t":"inf","c":43,"r":31},{"t":"cav","c":37,"r":32},{"t":"inf","c":42,"r":32},{"t":"art","c":31,"r":33},{"t":"art","c":30,"r":34},{"t":"art","c":34,"r":34},{"t":"inf","c":39,"r":34},{"t":"inf","c":42,"r":34},{"t":"inf","c":42,"r":37},{"t":"inf","c":44,"r":40},{"t":"inf","c":46,"r":40},{"t":"inf","c":44,"r":44},{"t":"inf","c":45,"r":45},{"t":"inf","c":45,"r":47}],"red":[{"t":"inf","c":53,"r":6},{"t":"inf","c":57,"r":7},{"t":"inf","c":57,"r":9},{"t":"cav","c":60,"r":11},{"t":"inf","c":55,"r":12},{"t":"art","c":62,"r":18},{"t":"inf","c":52,"r":19},{"t":"inf","c":54,"r":22},{"t":"inf","c":55,"r":23},{"t":"art","c":58,"r":25},{"t":"inf","c":59,"r":28},{"t":"inf","c":56,"r":29},{"t":"inf","c":58,"r":30},{"t":"inf","c":50,"r":32},{"t":"inf","c":53,"r":32},{"t":"inf","c":60,"r":32},{"t":"inf","c":55,"r":33},{"t":"cav","c":59,"r":33},{"t":"inf","c":51,"r":34},{"t":"inf","c":54,"r":35},{"t":"art","c":61,"r":35},{"t":"inf","c":55,"r":37},{"t":"cav","c":57,"r":37},{"t":"inf","c":57,"r":39},{"t":"inf","c":55,"r":41},{"t":"inf","c":60,"r":42},{"t":"inf","c":55,"r":43},{"t":"cav","c":60,"r":43},{"t":"inf","c":53,"r":45},{"t":"cav","c":57,"r":45},{"t":"inf","c":53,"r":47},{"t":"inf","c":55,"r":49},{"t":"inf","c":50,"r":50},{"t":"art","c":63,"r":50},{"t":"inf","c":53,"r":51},{"t":"inf","c":56,"r":53},{"t":"inf","c":53,"r":55},{"t":"inf","c":55,"r":56},{"t":"inf","c":53,"r":57},{"t":"art","c":63,"r":60}]},"symList":["inf","cav","arm","art","mg","recon","hq","dot"],"recruit":{"base":3,"perTurnCap":8,"moralePenalty":1,"storage":60},"factions":[{"id":"blue","name":"协约国","short":"协约","color":"#1f3a63","shape":"rect","team":"ally","player":true,"mp":6,"cap":40,"base":3,"rear":[0,26,0,63],"role":"defender","gthr":26},{"id":"red","name":"德意志帝国","short":"德军","color":"#7a1f1a","shape":"diamond","team":"central","player":false,"mp":6,"cap":60,"base":4,"rear":[56,63,0,63],"role":"attacker","gthr":10}],"version":"1.1.0","ai":{"minAttackRatio":0.9,"aggression":1,"reservePct":0.1,"garrisonPerCity":1,"bridgeGuard":1,"maxAssignedPerCity":4},"reinforcements":[{"turn":3,"side":"blue","type":"inf","hex":[12,44],"n":3},{"turn":4,"side":"blue","type":"cav","hex":[16,48],"n":1},{"turn":5,"side":"blue","type":"inf","hex":[22,8],"n":2},{"turn":6,"side":"blue","type":"art","hex":[18,42],"n":1}]}</script>
 <script>
 "use strict";
 var GD=null, DEFAULT=null, tab="units", brush="p", tool="terrain";
+var undoStack=[];
 var R=12, HW=Math.sqrt(3)*R, PAD=4, COLS=64, ROWS=64;
 var cv,ctx,MAPW,MAPH;
 
@@ -172,7 +173,9 @@ function isFileMode(){
 function embeddedGD(){
   var el=document.getElementById("GD");
   if(!el)throw new Error("编辑器缺少内置数据");
-  return JSON.parse(el.textContent);
+  var j=JSON.parse(el.textContent.replace(/^\uFEFF/,""));
+  validateData(j);
+  return j;
 }
 async function loadFromGame(){
   // 0) 本机存档优先
@@ -180,12 +183,19 @@ async function loadFromGame(){
   try{ saved=localStorage.getItem("fl_data"); }catch(e){}
   if(saved){
     try{
-      GD=JSON.parse(saved);
-      DEFAULT=embeddedGD();
-      $("src").innerHTML='<span class="good">已载入本机存档</span>';
-      setSav("本机存档已载入");
-      boot();
-      return;
+      var _sj=JSON.parse(saved.replace(/^\uFEFF/,""));
+      validateData(_sj);
+      var _emb=embeddedGD();
+      if(!_sj.version||(_emb.version&&_sj.version!==_emb.version)){ saved=null; }
+      else{
+        GD=_sj;
+        DEFAULT=_emb;
+        undoStack=[];
+        $("src").innerHTML='<span class="good">已载入本机存档</span>';
+        setSav("本机存档已载入");
+        boot();
+        return;
+      }
     }catch(e){ saved=null; }
   }
   // 1) 内置数据启动，保证地图一定能显示
@@ -210,6 +220,7 @@ async function loadFromGame(){
     var m=t.match(/<script type="application\/json" id="GD">([\s\S]*?)<\/script>/);
     if(!m)throw new Error("游戏页无数据块");
     GD=JSON.parse(m[1]);
+    validateData(GD);
     DEFAULT=JSON.parse(JSON.stringify(GD));
     $("src").innerHTML='<span class="good">已同步 index.html</span>';
     boot();
@@ -217,8 +228,36 @@ async function loadFromGame(){
     $("src").innerHTML='<span class="hint">使用内置数据（未能同步：'+e.message+'）</span>';
   }
 }
+function validateData(j){
+  var e=[];
+  if(!j||!j.meta)e.push('缺少 meta');
+  else{ if(!(j.meta.cols>=8&&j.meta.cols<=128))e.push('meta.cols 非法'); if(!(j.meta.rows>=8&&j.meta.rows<=128))e.push('meta.rows 非法'); }
+  if(!j.units||!Object.keys(j.units).length)e.push('缺少 units');
+  if(!j.terrain||!Object.keys(j.terrain).length)e.push('缺少 terrain');
+  if(!Array.isArray(j.crt)||j.crt.length!==6||j.crt.some(function(r){return !Array.isArray(r)||r.length!==6;}))e.push('crt 必须是 6×6');
+  if(!Array.isArray(j.map))e.push('缺少 map');
+  else if(j.meta&&(j.map.length!==j.meta.rows||j.map.some(function(r){return typeof r!=='string'||r.length!==j.meta.cols;})))e.push('map 尺寸与 meta 不一致');
+  if(!Array.isArray(j.factions)||!j.factions.length)e.push('缺少 factions');
+  if(!Array.isArray(j.cities))e.push('缺少 cities');
+  if(e.length)throw new Error('数据无效：'+e.join('；'));
+  return true;
+}
+function snapshot(){
+  try{
+    var s=JSON.stringify(GD);
+    if(undoStack.length&&undoStack[undoStack.length-1]===s)return;
+    undoStack.push(s);
+    if(undoStack.length>25)undoStack.shift();
+  }catch(e){}
+}
+function undo(){
+  if(!undoStack.length){msg('没有可撤销的操作');return;}
+  GD=JSON.parse(undoStack.pop());
+  buildUnits(); buildMap(); buildFac(); buildRules(); buildSim();
+  msg('已撤销上一步');
+}
 function loadJSON(txt){
-  GD=JSON.parse(txt);
+  var j=JSON.parse(txt.replace(/^\uFEFF/,""));validateData(j);if(!j.version)j.version="1.1.0";GD=j;undoStack=[];
   if(!DEFAULT)DEFAULT=JSON.parse(JSON.stringify(GD));
   $("src").textContent="已载入外部 JSON";
   boot();
@@ -268,6 +307,7 @@ function buildUnits(){
   $("p-units").oninput=function(ev){
     var t=ev.target;
     if(!t.dataset.k)return;
+    snapshot();
     var f=t.dataset.f;
     if(f==="n"||f==="g"||f==="sym"){ GD.units[t.dataset.k][f]=t.value; if(f==="sym"){ buildUnits(); return; } }
     else{var v=parseFloat(t.value); if(!isNaN(v))GD.units[t.dataset.k][f]=v;}
@@ -312,32 +352,55 @@ function symSVG(sym,size){
   var id=(r.id||"").trim();
   if(!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(id)){ msg("ID 只能字母开头，含字母数字下划线"); return; }
   if(GD.units[id]){ msg("ID 已存在："+id); return; }
+  snapshot();
   var base=GD.units[Object.keys(GD.units)[0]];
   var nu=JSON.parse(JSON.stringify(base));
   nu.n=(r.name||"新兵种"); nu.sym="inf"; nu.g="";
   GD.units[id]=nu;
   var cnt=parseInt(r.count,10); if(isNaN(cnt))cnt=0;
   if(cnt>0){
-    if(!GD.deploy)GD.deploy={};
-    (GD.factions||[]).forEach(function(f){
-      if(!GD.deploy[f.id])GD.deploy[f.id]=[];
-      var z=(f.rear&&f.rear.length===4)?f.rear.slice():[0,0,0,0];
-      GD.deploy[f.id].push({t:id,n:cnt,z:z});
-    });
+    snapshot();
+    if(GD.oob){
+      (GD.factions||[]).forEach(function(f){
+        if(!GD.oob[f.id])GD.oob[f.id]=[];
+        var z=(f.rear&&f.rear.length===4)?f.rear:[0,COLS-1,0,ROWS-1];
+        var pool=[];
+        for(var c=z[0];c<=z[1];c++)for(var rr=z[2];rr<=z[3];rr++){
+          if(!GD.map[rr]||!GD.terrain[GD.map[rr][c]]||GD.terrain[GD.map[rr][c]].mv>=90)continue;
+          var busy=(GD.factions||[]).some(function(q){return oobAt(q.id,c,rr)>=0;});
+          if(!busy)pool.push({c:c,r:rr});
+        }
+        for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),tmp=pool[i];pool[i]=pool[j];pool[j]=tmp;}
+        for(var n2=0;n2<pool.length&&n2<cnt;n2++)GD.oob[f.id].push({t:id,c:pool[n2].c,r:pool[n2].r});
+      });
+    }else{
+      if(!GD.deploy)GD.deploy={};
+      (GD.factions||[]).forEach(function(f){
+        if(!GD.deploy[f.id])GD.deploy[f.id]=[];
+        var z=(f.rear&&f.rear.length===4)?f.rear.slice():[0,0,0,0];
+        GD.deploy[f.id].push({t:id,n:cnt,z:z});
+      });
+    }
   }
-  buildUnits(); buildSim();
+  buildUnits(); buildMap(); buildSim();
   msg("已新增 "+id+"（每方 "+cnt+" 个）");
 }
 async function delUnit(id){
   if(Object.keys(GD.units).length<=1){ msg("至少保留一个兵种"); return; }
   if(!(await askConfirm("删除兵种","「"+GD.units[id].n+"」及其在各方部署表中的记录都会被移除。",true)))return;
+  snapshot();
   delete GD.units[id];
   if(GD.deploy){
     Object.keys(GD.deploy).forEach(function(s){
       GD.deploy[s]=GD.deploy[s].filter(function(d){return d.t!==id;});
     });
   }
-  buildUnits(); buildSim();
+  if(GD.oob){
+    Object.keys(GD.oob).forEach(function(s){
+      GD.oob[s]=GD.oob[s].filter(function(d){return d.t!==id;});
+    });
+  }
+  buildUnits(); buildMap(); buildSim();
   msg("已删除 "+id);
 }
 function expOf(col){
@@ -366,7 +429,7 @@ function refreshUnits(){
 /* ================= 地图 ================= */
 function buildMap(){
   if(!GD.oob) GD.oob={};
-  if(!unitSide)unitSide=(GD.factions&&GD.factions[0])?GD.factions[0].id:"blue";
+  if(!unitSide||!(GD.factions||[]).some(function(f){return f.id===unitSide;}))unitSide=(GD.factions&&GD.factions[0])?GD.factions[0].id:"blue";
   (GD.factions||[]).forEach(function(f){ if(!GD.oob[f.id])GD.oob[f.id]=[]; });
 
   var h='<div class="row"><span class="hint">工具：</span>'+
@@ -413,13 +476,14 @@ function buildMap(){
     if(e.target.id==="bClrOob"){
       askConfirm("清空部署","所有势力的部队部署都会被清除（不影响地形与城镇）。",true).then(function(ok){
         if(!ok)return;
+        snapshot();
         (GD.factions||[]).forEach(function(f){GD.oob[f.id]=[];});
         drawMap(); msg("已清空");
       });
       return;
     }
     if(e.target.id==="bGenOob"){
-      genFromDeploy(); drawMap(); msg("已按部署区重新生成"); return;
+      snapshot(); genFromDeploy(); drawMap(); msg("已按部署区重新生成"); return;
     }
   };
   CVInit();
@@ -478,7 +542,7 @@ function CVInit(){
     }
     if(cv._down)paint(e);
   };
-  window.onmouseup=function(){cv._down=false;cv._pan=null;};
+  window.onmouseup=function(){cv._down=false;cv._pan=null;cv._snapDone=false;};
   cv.ontouchstart=function(e){
     if(tool==="pan")return;
     e.preventDefault();paint(e.touches[0]);cv._down=true;
@@ -487,7 +551,7 @@ function CVInit(){
     if(tool==="pan")return;
     e.preventDefault();if(cv._down)paint(e.touches[0]);
   };
-  cv.ontouchend=function(){cv._down=false;};
+  cv.ontouchend=function(){cv._down=false;cv._snapDone=false;};
   drawMap();
 }
 function cx(c,r){return HW*(c+0.5*(r&1))+HW/2+PAD;}
@@ -537,25 +601,30 @@ async function editCity(i){
     fields:[
       {key:"n",label:"城镇名",value:ct.n},
       {key:"w",label:"分值（1–5）",type:"number",value:ct.w},
-      {key:"kind",label:"类型",type:"select",options:[{v:"0",n:"城镇"},{v:"1",n:"要塞"}],value:ct.fort?"1":"0"}
+      {key:"kind",label:"类型",type:"select",options:[{v:"0",n:"城镇"},{v:"1",n:"要塞"}],value:ct.fort?"1":"0"},
+      {key:"capital",label:"关键目标（首都）",type:"select",options:[{v:"0",n:"否"},{v:"1",n:"是"}],value:ct.capital?"1":"0"}
     ],
     extra:{label:"删除"},
     ok:"保存"});
   if(!r)return;
   if(r.__extra){
+    snapshot();
     GD.cities.splice(i,1);
     drawMap();
     msg("已删除 "+ct.n);
     return;
   }
+  snapshot();
   var w=parseInt(r.w,10); if(!(w>0))w=2; if(w>5)w=5;
   ct.n=(r.n||ct.n);
   ct.w=w;
   ct.fort=(r.kind==="1");
+  ct.capital=(r.capital==="1");
   drawMap();
   msg("已更新 "+ct.n);
 }
 async function placeCity(h){
+  snapshot();
   var r=await modal({title:"放置城镇",
     desc:"城镇是战果与兵源的来源；要塞额外提供防御加成。",
     fields:[
@@ -571,6 +640,7 @@ async function placeCity(h){
 }
 var _raf=null;
 function paint(e){
+  if(!cv._snapDone){snapshot();cv._snapDone=true;}
   var rc=cv.getBoundingClientRect();
   var mx=(e.clientX-rc.left)*(MAPW/rc.width), my=(e.clientY-rc.top)*(MAPH/rc.height);
   var h=hexAt(mx,my); if(!h)return;
@@ -604,6 +674,7 @@ function paint(e){
   _raf=requestAnimationFrame(function(){_raf=null;drawMap();});
 }
 async function newMap(){
+  snapshot();
   var opts=[],k;
   for(k in GD.terrain) opts.push({v:k,n:GD.terrain[k].n});
   var r=await modal({title:"新建地图",
@@ -624,13 +695,15 @@ async function newMap(){
   GD.map=[];
   for(var rr=0;rr<hh;rr++) GD.map.push(row);
   GD.cities=[];
+  var nf=Math.max(1,(GD.factions||[]).length);
+  var band=Math.max(1,Math.floor(w/nf));
   (GD.factions||[]).forEach(function(f){
     if(!GD.oob)GD.oob={};
     GD.oob[f.id]=[];
-    if(f.rear){
-      var t=GD.factions.indexOf(f);
-      f.rear=[Math.floor(w*0.85*t/Math.max(1,GD.factions.length-1)), w-1, 0, hh-1];
-    }
+    var t=GD.factions.indexOf(f);
+    var c0=Math.min(w-1,band*t);
+    var c1=(t===nf-1)?w-1:Math.min(w-1,band*(t+1)-1);
+    f.rear=[c0,c1,0,hh-1];
   });
   COLS=w; ROWS=hh;
   buildMap(); buildSim();
@@ -684,7 +757,6 @@ async function newMap(){
         hexPath(ctx,cx(cc,rr),cy(rr),R-0.5); ctx.fill();
       }
       ctx.globalAlpha=1; ctx.strokeStyle=color; ctx.lineWidth=1.6; ctx.setLineDash([5,4]);
-      ctx.strokeRect(cx(rect[0],0)-R, cy(rect[2])-R, 0,0);
       for(var cc2=rect[0];cc2<=rect[1];cc2++)for(var rr2=rect[2];rr2<=rect[3];rr2++){
         if(cc2<0||cc2>=COLS||rr2<0||rr2>=ROWS)continue;
         var ns=nbrs(cc2,rr2),edge=(ns.length<6);
@@ -704,7 +776,8 @@ async function newMap(){
   for(var i=0;i<GD.cities.length;i++){
     var ct=GD.cities[i],px=cx(ct.c,ct.r),py=cy(ct.r);
     ctx.beginPath(); ctx.arc(px,py,3,0,Math.PI*2);
-    ctx.fillStyle=ct.fort?"#5a2a1a":"#2b2620"; ctx.fill();
+    ctx.fillStyle=ct.capital?"#b8860b":(ct.fort?"#5a2a1a":"#2b2620"); ctx.fill();
+    if(ct.capital){ctx.beginPath();ctx.arc(px,py,5.5,0,Math.PI*2);ctx.strokeStyle="#b8860b";ctx.lineWidth=1.4;ctx.stroke();}
     ctx.strokeStyle="#fff"; ctx.lineWidth=1; ctx.stroke();
   }
   // 部队
@@ -757,11 +830,12 @@ function buildFac(){
   ];
   var h='<div class="row"><button id="bAddFac" class="pri">＋ 新增势力</button>'+
         '<span class="hint">team 相同即盟友（不会互相攻击）；勾选「玩家」的那个势力由你操控，其余由 AI 指挥。</span></div>';
-  h+='<table><tr><th>ID</th><th>名称</th><th>简称</th><th>颜色</th><th>外形</th><th>阵营</th><th>玩家</th>'+
-     '<th>初始兵源</th><th>上限</th><th>基础兵源</th><th>集结区（列起,列止,行起,行止）</th><th></th></tr>';
+  h+='<table><tr><th>ID</th><th>名称</th><th>简称</th><th>颜色</th><th>外形</th><th>阵营</th><th>角色</th><th>玩家</th>'+
+     '<th>初始兵源</th><th>上限</th><th>基础兵源</th><th>胜利阈值</th><th>回合上限</th><th>集结区（列起,列止,行起,行止）</th><th></th></tr>';
   GD.factions.forEach(function(f,i){
     var sh='';
     for(var k in SHAPES) sh+='<option value="'+k+'"'+(f.shape===k?" selected":"")+'>'+SHAPES[k]+'</option>';
+    var role=f.role||(f.player?'defender':'attacker');
     h+='<tr>'+
       '<td style="color:#8a7f66;font-size:11px">'+esc(f.id)+'</td>'+
       '<td><input type="text" class="nm" data-fi="'+i+'" data-fk="name" value="'+esc(f.name)+'"></td>'+
@@ -769,35 +843,44 @@ function buildFac(){
       '<td><input type="color" data-fi="'+i+'" data-fk="color" value="'+(f.color||"#666666")+'"></td>'+
       '<td><select data-fi="'+i+'" data-fk="shape">'+sh+'</select></td>'+
       '<td><input type="text" class="nm" style="width:70px" data-fi="'+i+'" data-fk="team" value="'+esc(f.team||f.id)+'"></td>'+
+      '<td><select data-fi="'+i+'" data-fk="role"><option value="attacker"'+(role==='attacker'?' selected':'')+'>进攻</option><option value="defender"'+(role==='defender'?' selected':'')+'>防御</option></select></td>'+
       '<td><input type="checkbox" data-fi="'+i+'" data-fk="player"'+(f.player?" checked":"")+'></td>'+
       '<td><input type="number" data-fi="'+i+'" data-fk="mp" value="'+(f.mp||0)+'"></td>'+
       '<td><input type="number" data-fi="'+i+'" data-fk="cap" value="'+(f.cap||0)+'"></td>'+
       '<td><input type="number" data-fi="'+i+'" data-fk="base" value="'+(f.base||0)+'"></td>'+
+      '<td><input type="number" data-fi="'+i+'" data-fk="gthr" value="'+(f.gthr===undefined?(GD.meta.gthr||10):f.gthr)+'"></td>'+
+      '<td><input type="number" data-fi="'+i+'" data-fk="maxt" value="'+(f.maxt===undefined?(GD.meta.maxt||16):f.maxt)+'"></td>'+
       '<td><input type="text" style="width:150px" data-fi="'+i+'" data-fk="rear" value="'+((f.rear||[]).join(","))+'"></td>'+
       '<td><button class="warn" style="min-height:26px;padding:0 8px;font-size:12px" data-delfac="'+i+'">删</button></td>'+
       '</tr>';
   });
-  h+='</table><div class="hint" id="facStat"></div>';
+  h+='</table><div class="hint">胜利阈值：回合末控制城镇总分达到该值即获胜（进攻方用）。玩家阵营通常靠撑满回合获胜。角色影响 AI：进攻方绕过要塞、优先高价值目标。</div><div class="hint" id="facStat"></div>';
   $("p-fac").innerHTML=h;
 
   $("p-fac").oninput=function(e){
     var t=e.target;
     if(t.dataset.delfac!==undefined)return;
     var i=t.dataset.fi; if(i===undefined)return;
+    snapshot();
     var f=GD.factions[+i], key=t.dataset.fk;
-    if(key==="player"){ f.player=t.checked; }
+    if(key==="player"){
+      f.player=t.checked;
+      if(t.checked)GD.factions.forEach(function(x,j){if(j!==+i){x.player=false;var cb=document.querySelector('[data-fi="'+j+'"][data-fk="player"]');if(cb)cb.checked=false;}});
+    }
     else if(key==="rear"){
       var a=t.value.split(",").map(function(x){return parseInt(x,10)||0;});
       if(a.length===4)f.rear=a;
     }
-    else if(key==="mp"||key==="cap"||key==="base"){ f[key]=parseInt(t.value,10)||0; }
-    else if(key==="name"||key==="short"||key==="team"||key==="color"){ f[key]=t.value; }
-    if(key==="color"||key==="shape"){ buildFac(); buildMap(); }
+    else if(key==="mp"||key==="cap"||key==="base"||key==="gthr"||key==="maxt"){ f[key]=parseInt(t.value,10)||0; }
+    else if(key==="name"||key==="short"||key==="team"||key==="color"||key==="role"){ f[key]=t.value; }
+    if(key==="color"){ drawMap(); }
     updateFacStat();
   };
   $("p-fac").onchange=function(e){
-    if(e.target.dataset.fk==="shape"){ GD.factions[+e.target.dataset.fi].shape=e.target.value; }
-    if(e.target.dataset.fk==="color"&&e.target.type==="color"){ GD.factions[+e.target.dataset.fi].color=e.target.value; }
+    snapshot();
+    if(e.target.dataset.fk==="shape"){ GD.factions[+e.target.dataset.fi].shape=e.target.value; drawMap(); }
+    if(e.target.dataset.fk==="role"){ GD.factions[+e.target.dataset.fi].role=e.target.value; }
+    if(e.target.dataset.fk==="color"&&e.target.type==="color"){ GD.factions[+e.target.dataset.fi].color=e.target.value; drawMap(); }
   };
   $("p-fac").onclick=function(e){
     if(e.target.id==="bAddFac"){ addFac(); return; }
@@ -824,8 +907,9 @@ async function addFac(){
   var id=(r.id||"").trim();
   if(!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(id)){ msg("ID 只能字母开头，含字母数字下划线"); return; }
   if(GD.factions.some(function(f){return f.id===id;})){ msg("ID 已存在："+id); return; }
+  snapshot();
   GD.factions.push({id:id,name:r.name||id,short:(r.name||id).slice(0,2),color:"#2e6b3f",shape:"circle",
-    team:r.team||id,player:false,mp:4,cap:20,base:3,rear:[0,0,0,0]});
+    team:r.team||id,player:false,mp:4,cap:20,base:3,gthr:GD.meta.gthr||10,maxt:GD.meta.maxt||16,role:"attacker",rear:[0,0,0,0]});
   if(!GD.oob)GD.oob={};
   if(!GD.oob[id])GD.oob[id]=[];
   if(!GD.deploy)GD.deploy={};
@@ -838,6 +922,7 @@ async function delFac(i){
   var f=GD.factions[i];
   if(!f)return;
   if(!(await askConfirm("删除势力","「"+f.name+"」及其全部部队部署都会被移除。",true)))return;
+  snapshot();
   GD.factions.splice(i,1);
   if(GD.oob)delete GD.oob[f.id];
   if(GD.deploy)delete GD.deploy[f.id];
@@ -904,23 +989,41 @@ function buildRules(){
 
   h+='<div class="row"><b>战役</b><br>'+
      '<label>回合上限 <input type="number" id="mxT" value="'+GD.meta.maxt+'"></label>'+
-     '<label>德军胜利分 <input type="number" id="mxG" value="'+GD.meta.gthr+'"></label></div>';
+     '<label>默认胜利阈值 <input type="number" id="mxG" value="'+GD.meta.gthr+'"></label>'+
+     '<span class="hint">势力页可单独覆盖</span></div>';
 
   var rc=GD.recruit||{};
   h+='<div class="row"><b>征兵</b></div><table>'+
      '<tr><th>项目</th><th>值</th><th>项目</th><th>值</th></tr>'+
-     '<tr><td>蓝方基础兵源</td><td><input type="number" data-rc="baseBlue" value="'+(rc.baseBlue||3)+'"></td>'+
-     '<td>红方基础兵源</td><td><input type="number" data-rc="baseRed" value="'+(rc.baseRed||3)+'"></td></tr>'+
-     '<tr><td>每回合上限</td><td><input type="number" data-rc="perTurnCap" value="'+(rc.perTurnCap||8)+'"></td>'+
-     '<td>开局兵源</td><td><input type="number" data-rc="startPool" value="'+(rc.startPool||6)+'"></td></tr>'+
-     '<tr><td>蓝方单位上限</td><td><input type="number" data-rc="blueMax" value="'+(rc.blueMax||48)+'"></td>'+
-     '<td>红方单位上限</td><td><input type="number" data-rc="redMax" value="'+(rc.redMax||56)+'"></td></tr>'+
-     '<tr><td>新兵士气惩罚</td><td><input type="number" data-rc="moralePenalty" value="'+(rc.moralePenalty||1)+'"></td>'+
-     '<td>兵源存储上限</td><td><input type="number" data-rc="storage" value="'+(rc.storage||60)+'"></td></tr>'+
-     '</table><div class="hint">后方集结区 <input type="text" style="width:130px" data-rcz="blueRear" value="'+((rc.blueRear||[]).join(","))+'">（列起,列止,行起,行止）　红方 <input type="text" style="width:130px" data-rcz="redRear" value="'+((rc.redRear||[]).join(","))+'"></div>';
+     '<tr><td>每回合兵源上限</td><td><input type="number" data-rc="perTurnCap" value="'+(rc.perTurnCap||8)+'"></td>'+
+     '<td>新兵士气惩罚</td><td><input type="number" data-rc="moralePenalty" value="'+(rc.moralePenalty||1)+'"></td></tr>'+
+     '<tr><td>兵源存储上限</td><td><input type="number" data-rc="storage" value="'+(rc.storage||60)+'"></td>'+
+     '<td></td><td></td></tr>'+
+     '</table><div class="hint">各势力的「基础兵源 / 单位上限 / 初始兵源 / 集结区」在「势力」页编辑；这里只放全局征兵参数。</div>';
+  h+='<div class="row"><b>增援</b> <button id="bAddRf" class="pri" style="min-height:30px;font-size:12px">＋ 新增增援</button></div>';
+  h+='<table><tr><th>回合</th><th>势力</th><th>兵种</th><th>列</th><th>行</th><th>数量</th><th></th></tr>';
+  var rfs=GD.reinforcements||[];
+  if(!rfs.length)h+='<tr><td colspan="7" class="hint">暂无增援</td></tr>';
+  rfs.forEach(function(p,i){
+    var so='',to='';
+    (GD.factions||[]).forEach(function(f){so+='<option value="'+f.id+'"'+(p.side===f.id?' selected':'')+'>'+esc(f.short||f.name)+'</option>';});
+    Object.keys(GD.units).forEach(function(k){to+='<option value="'+k+'"'+(p.type===k?' selected':'')+'>'+esc(GD.units[k].n)+'</option>';});
+    var hx=p.hex||[0,0];
+    h+='<tr>'+
+      '<td><input type="number" style="width:56px" data-rf="'+i+'" data-rk="turn" value="'+(p.turn||1)+'"></td>'+
+      '<td><select data-rf="'+i+'" data-rk="side">'+so+'</select></td>'+
+      '<td><select data-rf="'+i+'" data-rk="type">'+to+'</select></td>'+
+      '<td><input type="number" style="width:56px" data-rf="'+i+'" data-rk="c" value="'+(hx[0]||0)+'"></td>'+
+      '<td><input type="number" style="width:56px" data-rf="'+i+'" data-rk="r" value="'+(hx[1]||0)+'"></td>'+
+      '<td><input type="number" style="width:56px" data-rf="'+i+'" data-rk="n" value="'+(p.n||1)+'"></td>'+
+      '<td><button class="warn" style="min-height:26px;padding:0 8px;font-size:12px" data-delrf="'+i+'">删</button></td>'+
+      '</tr>';
+  });
+  h+='</table><div class="hint">增援在指定回合开始时出现在坐标附近，优先找空格。坐标超出地图会被跳过。</div>';
   $("p-rules").innerHTML=h;
   $("p-rules").oninput=function(e){
     var t=e.target;
+    snapshot();
     if(t.classList.contains("crt")) GD.crt[+t.dataset.r][+t.dataset.c]=t.value;
     else if(t.dataset.colthr!==undefined) GD.rules.colThresh[+t.dataset.colthr]=parseFloat(t.value);
     else if(t.dataset.seg!==undefined){
@@ -933,10 +1036,24 @@ function buildRules(){
       else GD.rules.bands[+t.dataset.band][f2]=(f2==="name"||f2==="ic")?t.value:parseFloat(t.value);
     }
     else if(t.dataset.loss) GD.rules.lossPct[t.dataset.loss]=parseFloat(t.value);
-    else if(t.id==="mxT") GD.meta.maxt=parseInt(t.value,10);
-    else if(t.id==="mxG") GD.meta.gthr=parseInt(t.value,10);
+    else if(t.id==="mxT"){
+      var oldT=GD.meta.maxt;GD.meta.maxt=parseInt(t.value,10)||16;
+      (GD.factions||[]).forEach(function(f){if(f.maxt===undefined||f.maxt===oldT)f.maxt=GD.meta.maxt;});
+    }
+    else if(t.id==="mxG"){
+      var oldG=GD.meta.gthr;GD.meta.gthr=parseInt(t.value,10)||10;
+      (GD.factions||[]).forEach(function(f){if(f.gthr===undefined||f.gthr===oldG)f.gthr=GD.meta.gthr;});
+    }
     else if(t.dataset.misc) GD.rules[t.dataset.misc]=parseFloat(t.value);
     else if(t.dataset.rc){ if(!GD.recruit)GD.recruit={}; GD.recruit[t.dataset.rc]=parseFloat(t.value)||0; }
+    else if(t.dataset.rf!==undefined){
+      var ri=+t.dataset.rf, rk=t.dataset.rk, rp=(GD.reinforcements||[])[ri];
+      if(rp){
+        if(rk==="turn"||rk==="n")rp[rk]=parseInt(t.value,10)||0;
+        else if(rk==="c"||rk==="r"){rp.hex=rp.hex||[0,0];rp.hex[rk==="c"?0:1]=parseInt(t.value,10)||0;}
+        else rp[rk]=t.value;
+      }
+    }
     else if(t.dataset.rcz){
       if(!GD.recruit)GD.recruit={};
       var arr=t.value.split(",").map(function(x){return parseInt(x,10)||0;});
@@ -944,6 +1061,31 @@ function buildRules(){
     }
     refreshUnits(); buildSim();
   };
+  $("p-rules").onclick=function(e){
+    if(e.target.id==="bAddRf"){addReinf();return;}
+    var b=e.target.closest("[data-delrf]");
+    if(b){snapshot();GD.reinforcements.splice(+b.dataset.delrf,1);buildRules();msg("已删除增援");}
+  };
+}
+async function addReinf(){
+  var sideOpts=(GD.factions||[]).map(function(f){return {v:f.id,n:f.short||f.name};});
+  var typeOpts=Object.keys(GD.units).map(function(k){return {v:k,n:GD.units[k].n};});
+  var r=await modal({title:"新增增援",
+    desc:"在指定回合开始时，于坐标附近生成部队。坐标为绝对格，超出地图会跳过。",
+    fields:[
+      {key:"turn",label:"回合",type:"number",value:"3"},
+      {key:"side",label:"势力",type:"select",options:sideOpts},
+      {key:"type",label:"兵种",type:"select",options:typeOpts},
+      {key:"c",label:"列",type:"number",value:"20"},
+      {key:"r",label:"行",type:"number",value:"20"},
+      {key:"n",label:"数量",type:"number",value:"2"}
+    ],ok:"添加"});
+  if(!r)return;
+  snapshot();
+  if(!GD.reinforcements)GD.reinforcements=[];
+  GD.reinforcements.push({turn:parseInt(r.turn,10)||1,side:r.side,type:r.type,
+    hex:[parseInt(r.c,10)||0,parseInt(r.r,10)||0],n:parseInt(r.n,10)||1});
+  buildRules();msg("已新增增援");
 }
 
 /* ================= 平衡预览 ================= */
@@ -982,6 +1124,9 @@ function buildSim(){
 
 /* ================= 保存 ================= */
 function save(){
+  try{validateData(GD);}catch(e){msg(e.message);return;}
+  if(!GD.version)GD.version="1.1.0";
+  snapshot();
   var json=JSON.stringify(GD);
   try{
     localStorage.setItem("fl_data",json);
@@ -1028,13 +1173,15 @@ function showTab(t){
 document.querySelectorAll("#tabs button").forEach(function(b){ b.onclick=function(){showTab(b.dataset.t);}; });
 $("bLoad").onclick=loadFromGame;
 $("bFile").onclick=function(){$("fs").click();};
+$("bUndo").onclick=undo;
 $("bSave").onclick=save;
+document.addEventListener("keydown",function(e){ if((e.ctrlKey||e.metaKey)&&(e.key==="z"||e.key==="Z")){e.preventDefault();undo();} });
 $("bDown").onclick=download;
 $("bReset").onclick=resetAll;
 $("bHelp").onclick=function(){
   modal({title:"存档与移动端使用",
     desc:
-"【保存到哪里】\n点「保存并应用」会把数据写进**本浏览器**的本地存储（localStorage），不写文件、不上传。\n编辑器和游戏是同一个站点，所以保存后回游戏页刷新即生效。\n\n【换设备 / 换浏览器】\nlocalStorage 不跨设备。要在手机上看，两条路：\n① 手机连同一个 Wi-Fi，直接打开 http://<电脑IP>:8080/editor.html 编辑，游戏同站点读取；\n② 点「导出 JSON」得到 gamedata.json → 传到手机 → 在编辑器里用「打开 JSON」载入 → 再「保存并应用」。\n\n【注意】\n如果用 file:// 直接双击打开（地址栏是 file:///…），浏览器禁止读取相邻文件，编辑器会显示「本地文件模式」。此时功能都能用，但存档游戏读不到 —— 请走这条路：\n编辑器「导出 JSON」→ 打开游戏 → 点右上角「载入」选择该 JSON → 自动生效。\n\n【移动端操作】\n地图页选「平移」后用单指拖动可滚动地图；选「涂地形 / 放部队」等工具后单指拖动即为绘制。所有输入都改用页面内弹窗，不依赖系统 prompt。",
+"【保存到哪里】\n点「保存并应用」会把数据写进**本浏览器**的本地存储（localStorage），不写文件、不上传。\n编辑器和游戏是同一个站点，所以保存后回游戏页刷新即生效。\n\n【换设备 / 换浏览器】\nlocalStorage 不跨设备。要在手机上看，两条路：\n① 手机连同一个 Wi-Fi，直接打开 http://<电脑IP>:8080/editor.html 编辑，游戏同站点读取；\n② 点「导出 JSON」得到 gamedata.json → 传到手机 → 在编辑器里用「打开 JSON」载入 → 再「保存并应用」。\n\n【注意】\n如果用 file:// 直接双击打开（地址栏是 file:///…），浏览器禁止读取相邻文件，编辑器会显示「本地文件模式」。此时功能都能用，但存档游戏读不到 —— 请走这条路：\n编辑器「导出 JSON」→ 打开游戏 → 点右上角「载入」选择该 JSON → 自动生效。\n\n【撤销】\n顶部「撤销」或 Ctrl+Z 可回退最近 25 步编辑（地图绘制、城市、部队、规则输入、增援等）。\n\n【增援 / 胜利条件】\n规则页可编辑每回合增援（回合、势力、兵种、坐标、数量）；势力页可改角色（进攻/防御）、胜利阈值与回合上限；城市编辑里可标记「关键目标（首都）」。\n\n【移动端操作】\n地图页选「平移」后用单指拖动可滚动地图；选「涂地形 / 放部队」等工具后单指拖动即为绘制。所有输入都改用页面内弹窗，不依赖系统 prompt。",
     ok:"知道了"});
 };
 
