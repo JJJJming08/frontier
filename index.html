@@ -17,7 +17,7 @@ header .brand{font-weight:700;color:#f2c14e;letter-spacing:.5px}
 header .obj{color:#d9c9a8}
 header .obj.hot{color:#ff9b7a}
 .sp{flex:1}
-#err{display:none;background:#7a1f1a;color:#fff;font-size:12px;padding:6px 10px;
+#err{display:none;position:relative;z-index:80;background:#7a1f1a;color:#fff;font-size:12px;padding:6px 10px;
   white-space:pre-wrap;line-height:1.4;border-bottom:1px solid #c0392b;flex:0 0 auto}
 #mapwrap{flex:1 1 auto;overflow:auto;background:#1a1713;padding:8px;min-height:0;position:relative}
 #map{display:block;background:#e3d9bf;cursor:pointer;touch-action:none}
@@ -49,7 +49,7 @@ button.on{background:#f2c14e;color:#2b2620;border-color:#f2c14e;font-weight:600}
 .zoom{padding:0 9px;min-width:38px;font-size:16px}
 /* 覆盖层 */
 .overlay{position:fixed;inset:0;background:rgba(16,13,10,.9);display:flex;align-items:center;
-  justify-content:center;z-index:20;padding:16px}
+  justify-content:center;z-index:60;padding:16px}
 .panel{background:#2f2a22;border:1px solid #5a5044;border-radius:8px;padding:16px;
   width:min(620px,94vw);max-height:88vh;overflow:auto;box-shadow:0 12px 48px rgba(0,0,0,.6)}
 .panel h1{font-size:22px;margin:0 0 8px;color:#f2c14e;font-weight:600}
@@ -64,7 +64,7 @@ button.on{background:#f2c14e;color:#2b2620;border-color:#f2c14e;font-weight:600}
 .panel input[type=number]{width:64px}
 /* 游戏结束 */
 .win{position:fixed;inset:0;background:rgba(16,13,10,.94);display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:16px;z-index:30;padding:20px;text-align:center}
+  align-items:center;justify-content:center;gap:16px;z-index:70;padding:20px;text-align:center}
 .win h1{font-size:26px;margin:0;color:#f2c14e;font-weight:600}
 .win .sub{color:#b8ab93;font-size:13px;line-height:1.7}
 /* 征兵 */
@@ -90,6 +90,63 @@ button.on{background:#f2c14e;color:#2b2620;border-color:#f2c14e;font-weight:600}
   #hDbg{display:none}
   #tip{font-size:11px;max-width:200px}
 }
+/* ================= 主菜单 ================= */
+.menu{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
+  padding:22px;background:radial-gradient(circle at 18% 0%,#3d352a 0%,#221e19 52%,#14110e 100%);
+  overflow:auto}
+.menu[hidden]{display:none}\n.menu-main[hidden],.menu-sub[hidden]{display:none!important}
+.menu::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;
+  background-image:linear-gradient(30deg,#f2c14e 1px,transparent 1px),linear-gradient(150deg,#f2c14e 1px,transparent 1px);
+  background-size:46px 80px}
+.menu-card{position:relative;width:min(620px,95vw);max-height:92vh;overflow:auto;
+  background:rgba(43,38,32,.94);border:1px solid #5a5044;border-radius:10px;
+  padding:30px 32px 20px;box-shadow:0 18px 70px rgba(0,0,0,.65)}
+.menu-kicker{font-size:11px;letter-spacing:3px;color:#a89a85;text-transform:uppercase}
+.menu h1{font-size:44px;line-height:1.1;letter-spacing:5px;margin:8px 0 4px;color:#f2c14e;font-weight:700}
+.menu-sub{margin:0 0 4px;color:#b8ab93;font-size:13px;letter-spacing:1px}
+.menu-main{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.menu-item{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  min-height:64px;padding:10px 16px;text-align:left;background:#3a332a;border:1px solid #5a5044;
+  border-radius:7px;color:#e8dfc9;cursor:pointer;transition:background .12s,border-color .12s,transform .12s}
+.menu-item:hover{background:#4a4136;border-color:#8a7f66;transform:translateX(2px)}
+.menu-item span{font-size:18px;font-weight:600;letter-spacing:1px}
+.menu-item small{display:block;margin-top:2px;color:#a89a85;font-size:11px;letter-spacing:.3px}
+.menu-item.primary{background:#2e5fa3;border-color:#4a7fc0}
+.menu-item.primary:hover{background:#3a6fb8}
+.menu-item.primary small{color:#cfe0f5}
+.menu-item:disabled{opacity:.42;cursor:default;transform:none}
+.menu-sub h2{font-size:22px;margin:14px 0 10px;color:#f2c14e;letter-spacing:2px}
+.menu-back{min-height:32px;padding:0 10px;font-size:12px;background:transparent;border-color:#5a5044;color:#b8ab93}
+.menu-back:hover{background:#3a332a}
+.scenario-card{display:flex;gap:14px;padding:12px;border:1px solid #5a5044;border-radius:8px;background:#312b23}
+.scenario-year{flex:0 0 74px;height:74px;border:1px solid #7a6f5e;border-radius:7px;display:flex;
+  align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#f2c14e;
+  background:linear-gradient(145deg,#4a4136,#2b2620);letter-spacing:1px}
+.scenario-card h3{margin:0 0 4px;font-size:16px;color:#f2c14e}
+.scenario-card p{margin:0 0 6px;color:#b8ab93;font-size:12px;line-height:1.6}
+.scenario-meta{color:#8a7f66;font-size:11px;letter-spacing:.3px}
+.menu-note{margin:12px 0 0;color:#a89a85;font-size:12px;line-height:1.6;min-height:19px}
+.menu-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.menu-primary{min-height:46px;padding:0 22px;background:#2e5fa3;border-color:#4a7fc0;font-weight:600;font-size:15px}
+.menu-primary:hover{background:#3a6fb8}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:11px 2px;border-bottom:1px solid #4a4136;cursor:pointer}
+.setting-row span{font-size:14px;color:#e8dfc9}
+.setting-row small{display:block;margin-top:2px;font-size:11px;color:#8a7f66;line-height:1.45}
+.setting-row input[type=checkbox]{flex:0 0 auto;width:22px;height:22px;accent-color:#f2c14e;cursor:pointer}
+.menu-foot{margin-top:22px;padding-top:10px;border-top:1px solid #4a4136;color:#6f6555;font-size:10px;letter-spacing:.5px;text-align:center}
+@media (max-width:760px){
+  .menu{padding:12px}
+  .menu-card{padding:20px 16px 14px;max-height:94vh}
+  .menu h1{font-size:32px;letter-spacing:3px}
+  .menu-kicker{font-size:10px;letter-spacing:2px}
+  .menu-item{min-height:58px;padding:9px 12px}
+  .menu-item span{font-size:16px}
+  .scenario-card{gap:10px}
+  .scenario-year{flex-basis:58px;height:58px;font-size:18px}
+  .setting-row{padding:12px 0}
+  .setting-row span{font-size:13px}
+}
 </style>
 </head>
 <body>
@@ -104,6 +161,7 @@ button.on{background:#f2c14e;color:#2b2620;border-color:#f2c14e;font-weight:600}
     <span>兵源 <b id="hMp">0</b></span>
     <span id="hDbg"></span>
     <span class="sp"></span>
+    <button id="btnMenu" title="主菜单">菜单</button>
     <button id="btnHelp" title="规则与操作">?</button>
     <button id="btnFast" title="快速 AI（跳过逐单位动画）">快</button>
     <button class="zoom" id="btnZo" title="缩小">−</button>
@@ -127,6 +185,55 @@ button.on{background:#f2c14e;color:#2b2620;border-color:#f2c14e;font-weight:600}
       <button id="btnEnd">结束回合</button>
     </div>
   </footer>
+</div>
+
+<div id="menu" class="menu" hidden>
+  <div class="menu-card">
+    <div class="menu-brand">
+      <div class="menu-kicker">1914 · 西部战线</div>
+      <h1>战线 1914</h1>
+      <p class="menu-sub">比利时战役 · 六角格战棋</p>
+    </div>
+    <div class="menu-main" id="menuMain">
+      <button class="menu-item primary" data-menu="campaign">
+        <span>战役</span><small>选择战役并开始新对局</small>
+      </button>
+      <button class="menu-item" data-menu="continue" id="menuContinue">
+        <span>继续战役</span><small id="menuContinueSub">读取上次进度</small>
+      </button>
+      <button class="menu-item" data-menu="settings">
+        <span>设置</span><small>显示、AI 与存档选项</small>
+      </button>
+      <button class="menu-item" data-menu="help">
+        <span>帮助</span><small>规则、操作与快捷键</small>
+      </button>
+    </div>
+    <div class="menu-sub" id="menuCampaign" hidden>
+      <button class="menu-back" data-back>← 返回</button>
+      <h2>战役</h2>
+      <div class="scenario-card">
+        <div class="scenario-year">1914</div>
+        <div>
+          <h3>比利时战役</h3>
+          <p>你指挥协约国，在默兹河与代勒河之间挡住德军。守住城镇，撑满回合。</p>
+          <div class="scenario-meta" id="campaignMeta"></div>
+        </div>
+      </div>
+      <p class="menu-note" id="campaignNote"></p>
+      <div class="menu-actions"><button class="menu-primary" id="btnStartCampaign">开始战役</button></div>
+    </div>
+    <div class="menu-sub" id="menuSettings" hidden>
+      <button class="menu-back" data-back>← 返回</button>
+      <h2>设置</h2>
+      <label class="setting-row"><span>快速 AI<small>跳过逐单位动画，AI 仍会完整计算</small></span><input type="checkbox" id="setFast"></label>
+      <label class="setting-row"><span>开局自动全图<small>进入战役时自动缩放到整张地图</small></span><input type="checkbox" id="setAutoFit"></label>
+      <label class="setting-row"><span>悬停提示<small>鼠标悬停显示地形 / 城镇 / 单位</small></span><input type="checkbox" id="setHints"></label>
+      <label class="setting-row"><span>结束回合确认<small>防止误点结束回合</small></span><input type="checkbox" id="setConfirmEnd"></label>
+      <label class="setting-row"><span>自动存档<small>每回合与每次操作后写入本机</small></span><input type="checkbox" id="setAutoSave"></label>
+      <div class="menu-actions"><button id="setReset">恢复默认</button></div>
+    </div>
+    <div class="menu-foot">v1.1 · 单文件离线版 · 零依赖</div>
+  </div>
 </div>
 <div id="modalRoot"></div>
 <script type="application/json" id="GD">{"meta":{"cols":64,"rows":64,"maxt":16,"gthr":10,"name":"比利时战役 1914"},"units":{"inf":{"n":"步兵师","atk":4,"def":5,"mv":4,"rg":1,"stg":100,"mor":4,"sym":"inf","cost":4},"cav":{"n":"骑兵师","atk":5,"def":3,"mv":6,"rg":1,"stg":80,"mor":3,"sym":"cav","cost":3},"art":{"n":"炮兵","atk":6,"def":2,"mv":3,"rg":3,"mr":2,"stg":60,"mor":3,"sym":"art","cost":3}},"terrain":{"p":{"n":"平原","f":"#e3d9bf","def":1,"mv":1},"f":{"n":"森林","f":"#6d7a52","def":1.3,"mv":2},"m":{"n":"圩田","f":"#b8b08c","def":1.1,"mv":3},"t":{"n":"城镇","f":"#a3968a","def":1.5,"mv":1},"F":{"n":"要塞","f":"#8a7a6a","def":1.45,"mv":1},"r":{"n":"河流","f":"#8fa9b4","def":1,"mv":99},"b":{"n":"桥梁","f":"#c9b28a","def":0.9,"mv":1}},"crt":[["A","A","A","EX","EX","D"],["A","A","EX","EX","D","D"],["A","EX","EX","D","D","DD"],["EX","EX","D","D","DD","DD"],["EX","D","D","DD","DD","DD"],["D","D","DD","DD","DD","DD"]],"rules":{"segs":[{"min":75,"mult":1,"name":"满编"},{"min":50,"mult":0.8,"name":"减员"},{"min":25,"mult":0.6,"name":"残破"},{"min":0,"mult":0.4,"name":"濒危"}],"bands":[{"min":5,"name":"高","ic":"▲","col":"#4c7a43","def":1.1,"atk":true},{"min":3,"name":"中","ic":"●","col":"#b98a2e","def":1,"atk":true},{"min":1,"name":"低","ic":"▼","col":"#d0553f","def":0.85,"atk":false},{"min":0,"name":"溃散","ic":"✖","col":"#7a1f1a","def":0.7,"atk":false}],"lossPct":{"A":18,"D":18,"EX":18,"DD":45},"lossVar":2,"morPerSeg":1,"retreatBase":2,"retreatWound":2,"retreatLow":2,"routPct":10,"rangedShift":1,"colThresh":[0.6,0.9,1.4,2.2,3.2],"artAssaultDef":0.5,"counterBatteryShift":1},"cities":[{"c":20,"r":4,"n":"安特卫普","w":3},{"c":10,"r":10,"n":"布鲁日","w":2},{"c":18,"r":14,"n":"根特","w":2},{"c":26,"r":22,"n":"布鲁塞尔","w":4,"capital":true},{"c":34,"r":14,"n":"鲁汶","w":2},{"c":26,"r":12,"n":"马利纳","w":2},{"c":46,"r":26,"n":"列日","w":3,"fort":true},{"c":46,"r":40,"n":"那慕尔","w":3,"fort":true},{"c":34,"r":44,"n":"沙勒罗瓦","w":2},{"c":14,"r":46,"n":"蒙斯","w":3}],"deploy":{"blue":[{"t":"inf","n":14,"z":[42,46,12,48]},{"t":"inf","n":6,"z":[36,40,14,46]},{"t":"cav","n":4,"z":[34,38,16,44]},{"t":"art","n":4,"z":[30,34,18,42]},{"t":"inf","n":2,"z":[26,30,20,32]}],"red":[{"t":"inf","n":20,"z":[50,57,4,60]},{"t":"inf","n":10,"z":[52,60,4,60]},{"t":"cav","n":5,"z":[56,61,4,60]},{"t":"art","n":5,"z":[58,63,4,60]}]},"map":["mmfffpppmppmmpmffffpmmpmpppmpppppppmpmpppmpmmprmppmmmppmpmmpffpm","pfffpppmppppppfffmffmpmpmppppmpmmpppmfmpppmmmmrppppppppmmpppfpff","ffpffmpppmpmmffffmfpmmppmppmpppfmpppmpfpppmppmrmppmpppmpmppmmffm","pffppmpppmppppfffppmmppppppmppfmfppmmmmpppmppprpmppppppmppppppmp","fffpmpppmmpppppfmmpptpppppmpmfmfffpmpmpppmmmpmrmpmmmpppppmmpmmfp","mfffppmpmppmmmpppmmppmpmppppmmfffpppppppmpmppmrmmpppmppmmppppmff","mfpppppppppppppmppppfpmmpppppfrfffmpmmmppppmpprpmpmpppppppppffff","pppmppmppmpmpmmppmpmfmpmmpppmmrmfppmpmpmppfppmrmmmpppppppfmppmfp","pmpppmpppmpmpmppppmpfffmpmmmpfrfppppmpmppfffppbmmpmpppmmfffmppfp","ppmmmmppppmpppppmmmfffpppppmfprmppppmpmppmfppmrppmpmmpmppfpppmmm","rrrrrrrrrrtrrrrrrrbrrrrrrrrrrrbrrrrrrrrrrrrfmprppmpppmpmppmppppm","pmmmmppppppmpmmpmmppppppmmppffrpmppfmppppmfppprppppppppppmmpmppm","mmppmpmpppmpmpmppppppppmpptmpfrmppmffmpppppppprpmmmppmpmpppmmmpm","pppppppppppppppppppppppppppppprpppppppfppppppprppppppppppppppppp","pppppppppppppppppptppppppppppprppptppppfpppppprpppppppppfppppppp","pppppppppppppppppppppppppppppprppppppfffffpppprpppppppppfppppppp","pppppppppppppppppppppppppppppprpppppppfppppppprpppppppffffpppppf","pppppppppppppppppppppppppppppprpppppppffpppppprpppppppppffppppfp","pppppppppppppppppppfpppppppppprpppppppffpppppprpppppppppfpppppfp","ppppppppppppppppppffppppppppffrpppppffffpppppprpppppppppppppfpfp","pppppppppppppppppppfpppppppffprfpppppffppppppprppppppppppppfpfpf","pppppppppppppppppppfppppppppffrpppppppfppppppprpppppppppppfpppfp","ppppppppppppppppppfffppppptppfbppppfpppppppppprppppppppppppfpfpp","pppppppppppppppppfffffpppppppprpppfffppppppppprppppppppppppppfff","ppppppppppppppppppffpppppppppprppfpfffpppppppprpppppppppfppppfpf","pppppppppppppppppppfpppppppppprpppfpfpppppppppbppppppppppfpppfff","ppppppppppppppppfpfppppppppppprppfffppppppppppFpppppppppppppppfp","pppppppppppppppppppppppppppppprpppfpppppppppppbppfpppppppppppppp","ppppfpfppppppppppppppppppppppprppppppfpppppppprppffppppppppppppp","pppfpfpppppppppppppppppppppppprppppppfpppppppprfffffpppppfpppppp","ppppfffppppppppppfffppppppfffprppppppfpppppppprpfffpppppfffppppp","ppppffppppppppppppfpfppppppppprppppppppppppppprppfppppppfppfpppp","pppppppppppppppfppppfppppppppfrppppppfpppppfpprpfpfppfffffffpffp","ppppppppppppppfpfpppfffppppppfrppppppffppppfpprfffpfpffpffffpffp","ppppppppppppppffpfpffppppppfppbfppppfppffpppffrffffppfpfpffpffpp","ppppppppppppppffffppfpppppppffrpppfpppfppppfpfrffpfppfpppppffffp","ppppppppppppppffffpppppppppfffrfpfpppfpppfppfprpppffpffpppffffpf","ppppppppppppppppfppppppppppppfrpfffffpfppffpfprfpfppfffffpfpfppf","ppppppppppppppppfppppppppppppprpppfffppppfpfpfrffffpppfppfpppfpf","ppppppppppppppppppppppppppppppppppffpfpfppppppbfffffpppfpffffffp","pppppfpppppppppppppppppppppppppppppfpppppppfppFffpffppfffffpffff","ppppfffppppppppppppppppppppppppppppppfppppffpfbffppppffpfffpfpfp","pppfffffpppppppppppppppppppppppppppfppppfppppfrpffppppffffppffpp","ppppfpppfpppppppppppppppppppppppppfpppppfppffprpfpfpffppppfppppp","pppppppfffpppppppppppppppppppppppftfpfpppppppfrfppfpffpppfpfppfp","ppppppppfppppppppppppppppfppppppffpffpppppfppfrpfpfpppfpfpffffff","rrrrrrrrrrrrrrtrrrrrrrrrrrbrrrrrrrrrrrbrrrrrrrrfffffffpfppfppfpp","ppppppppppfffppppppppppfffffppppppfpfffppfpfpfrppppfpppfffffffff","pppppppppppfpfppppppppppfffpppppppppppfpfpffpprffppfppppffpfffpf","ppppppppppppfffppppppppppfppppppppfppfpfpfpfffrfpfpfpppppfffppff","pppppppppppfpppfppppppppppppppppppfppfppffpfffrffffffppppfppppff","ppppppppppppfffpppppppppppppppppppppfpfpffppffrffffffpppfpffffff","ppppppppppppfffppfppppppppppppppppppppfpfffpffrpfpfpfffffpfpfffp","pppppppppppppfpppfpppppppppppppppppfpppfppfffprpfpfffffffpfppfff","ppppppppppppppppppppppppppppppppppfpffpppfpfffbfpffppfpfpffpffpf","pppppppppppppppppppppppppppppppppppffppffffppprpfffpffppfffffpff","ppppppppppppppppppppppppppppppppppfppppfpfppffrfpfpfpffffffffffp","ppppppppppppppppppppppppppppppppppfppppppffppprpfpfpffpffffffppp","pppppppppppppppppppppppppppppppppppppfffffffpprppppffpffffffpppp","pppppfppppppppppppppppppppppppppppffppppfpfffprpffpffffffffpffpf","ppppfffppppppppppfpppppppppppffpppffpffpffpfpfrpfppffffffppfpfff","pppppfppppppppppfffppppppfpppfppppppfpfppfffffrfffppffppfpfpfppf","pppppppppppppppfffffppppffppppppppffpfppfppfffrfffpfffpfpfffffff","ppppppppppppppppppfppppfffpfpppppppppffpfffpfprffffpfpfffpffffpp"],"oob":{"blue":[{"t":"inf","c":43,"r":12},{"t":"inf","c":42,"r":14},{"t":"inf","c":40,"r":15},{"t":"inf","c":39,"r":16},{"t":"cav","c":34,"r":17},{"t":"inf","c":42,"r":17},{"t":"art","c":33,"r":18},{"t":"inf","c":38,"r":19},{"t":"inf","c":42,"r":19},{"t":"inf","c":44,"r":19},{"t":"inf","c":42,"r":21},{"t":"cav","c":38,"r":23},{"t":"inf","c":26,"r":25},{"t":"inf","c":46,"r":26},{"t":"cav","c":38,"r":28},{"t":"inf","c":39,"r":28},{"t":"inf","c":26,"r":31},{"t":"inf","c":37,"r":31},{"t":"inf","c":43,"r":31},{"t":"cav","c":37,"r":32},{"t":"inf","c":42,"r":32},{"t":"art","c":31,"r":33},{"t":"art","c":30,"r":34},{"t":"art","c":34,"r":34},{"t":"inf","c":39,"r":34},{"t":"inf","c":42,"r":34},{"t":"inf","c":42,"r":37},{"t":"inf","c":44,"r":40},{"t":"inf","c":46,"r":40},{"t":"inf","c":44,"r":44},{"t":"inf","c":45,"r":45},{"t":"inf","c":45,"r":47}],"red":[{"t":"inf","c":53,"r":6},{"t":"inf","c":57,"r":7},{"t":"inf","c":57,"r":9},{"t":"cav","c":60,"r":11},{"t":"inf","c":55,"r":12},{"t":"art","c":62,"r":18},{"t":"inf","c":52,"r":19},{"t":"inf","c":54,"r":22},{"t":"inf","c":55,"r":23},{"t":"art","c":58,"r":25},{"t":"inf","c":59,"r":28},{"t":"inf","c":56,"r":29},{"t":"inf","c":58,"r":30},{"t":"inf","c":50,"r":32},{"t":"inf","c":53,"r":32},{"t":"inf","c":60,"r":32},{"t":"inf","c":55,"r":33},{"t":"cav","c":59,"r":33},{"t":"inf","c":51,"r":34},{"t":"inf","c":54,"r":35},{"t":"art","c":61,"r":35},{"t":"inf","c":55,"r":37},{"t":"cav","c":57,"r":37},{"t":"inf","c":57,"r":39},{"t":"inf","c":55,"r":41},{"t":"inf","c":60,"r":42},{"t":"inf","c":55,"r":43},{"t":"cav","c":60,"r":43},{"t":"inf","c":53,"r":45},{"t":"cav","c":57,"r":45},{"t":"inf","c":53,"r":47},{"t":"inf","c":55,"r":49},{"t":"inf","c":50,"r":50},{"t":"art","c":63,"r":50},{"t":"inf","c":53,"r":51},{"t":"inf","c":56,"r":53},{"t":"inf","c":53,"r":55},{"t":"inf","c":55,"r":56},{"t":"inf","c":53,"r":57},{"t":"art","c":63,"r":60}]},"symList":["inf","cav","arm","art","mg","recon","hq","dot"],"recruit":{"base":3,"perTurnCap":8,"moralePenalty":1,"storage":60},"factions":[{"id":"blue","name":"协约国","short":"协约","color":"#1f3a63","shape":"rect","team":"ally","player":true,"mp":6,"cap":40,"base":3,"rear":[0,26,0,63],"role":"defender","gthr":26},{"id":"red","name":"德意志帝国","short":"德军","color":"#7a1f1a","shape":"diamond","team":"central","player":false,"mp":6,"cap":60,"base":4,"rear":[56,63,0,63],"role":"attacker","gthr":10}],"version":"1.1.0","ai":{"minAttackRatio":0.9,"aggression":1,"reservePct":0.1,"garrisonPerCity":1,"bridgeGuard":1,"maxAssignedPerCity":4},"reinforcements":[{"turn":3,"side":"blue","type":"inf","hex":[12,44],"n":3},{"turn":4,"side":"blue","type":"cav","hex":[16,48],"n":1},{"turn":5,"side":"blue","type":"inf","hex":[22,8],"n":2},{"turn":6,"side":"blue","type":"art","hex":[18,42],"n":1}]}</script>
@@ -1274,6 +1381,8 @@ function updateHUD(){
   if(end)end.disabled=state.busy||!!state.over;
   var fast=document.getElementById("btnFast");
   if(fast)fast.classList.toggle("on",!!state.fast);
+  var bm=document.getElementById("btnMenu");
+  if(bm)bm.disabled=!!state.busy;
 }
 function renderLog(){
   var lg=document.getElementById("log");
@@ -1345,6 +1454,188 @@ function esc(s){
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 /* ==========================================================================
+   44 主菜单 / 设置 / 继续战役
+   ========================================================================== */
+var SETTINGS_KEY="fl_settings";
+var DEFAULT_SETTINGS={fast:false,autoFit:false,hints:true,confirmEnd:false,autoSave:true};
+function loadSettings(){
+  var s={};
+  try{
+    var raw=safeGet(SETTINGS_KEY);
+    if(raw)s=JSON.parse(raw.replace(/^\uFEFF/,""));
+  }catch(e){s={};}
+  var out={};
+  Object.keys(DEFAULT_SETTINGS).forEach(function(k){out[k]=(s[k]===undefined?DEFAULT_SETTINGS[k]:!!s[k]);});
+  if(!out.fast&&safeGet("fl_fast")==="1")out.fast=true;
+  return out;
+}
+var SETTINGS=loadSettings();
+function saveSettings(){
+  safeSet(SETTINGS_KEY,JSON.stringify(SETTINGS));
+  safeSet("fl_fast",SETTINGS.fast?"1":"0");
+}
+function applySettings(){
+  if(typeof state!=="undefined"&&state)state.fast=!!SETTINGS.fast;
+  if(!SETTINGS.hints&&typeof hideTip==="function")hideTip();
+}
+function readSave(){
+  try{
+    var s=JSON.parse(safeGet("fl_save")||"null");
+    if(!s||s.v!==2||s.hash!==DATA_HASH||!Array.isArray(s.units)||!s.units.length)return null;
+    return s;
+  }catch(e){return null;}
+}
+var PENDING_SAVE=null;
+var gameActive=false;
+var menuOpen=false;
+
+function showMenuScreen(name){
+  var main=document.getElementById("menuMain"),camp=document.getElementById("menuCampaign"),
+      set=document.getElementById("menuSettings");
+  if(!main)return;
+  main.hidden=name!=="main";
+  camp.hidden=name!=="campaign";
+  set.hidden=name!=="settings";
+  if(name==="campaign")updateCampaignScreen();
+  if(name==="settings")syncSettingsUI();
+  var focus=main.querySelector("[data-menu]");
+  if(name==="campaign")focus=document.getElementById("btnStartCampaign");
+  if(name==="settings")focus=document.getElementById("setFast");
+  if(focus)setTimeout(function(){try{focus.focus();}catch(e){}},30);
+}
+function updateCampaignScreen(){
+  var meta=document.getElementById("campaignMeta"),note=document.getElementById("campaignNote"),
+      btn=document.getElementById("btnStartCampaign");
+  var red=fac("red"),total=(typeof units!=="undefined"&&units&&units.length)?units.length:((GD.oob&&GD.oob.blue?GD.oob.blue.length:0)+((GD.oob&&GD.oob.red)?GD.oob.red.length:0));
+  if(meta)meta.textContent=COLS+"×"+ROWS+" 地图 · "+MAXT+" 回合 · 敌军阈值 "+(red.gthr||GTHR)+
+    " · 开局 "+total+" 单位 · 全图 "+TOTAL_WEIGHT+" 分";
+  if(note)note.textContent=gameActive&&!state.over?
+    ("当前对局：第 "+state.turn+" 回合，开始新战役会放弃当前进度。"):
+    "将开始一场新的对局。";
+  if(btn)btn.textContent=gameActive&&!state.over?"开始新战役（放弃当前）":"开始战役";
+}
+function refreshMenu(){
+  var btn=document.getElementById("menuContinue"),sub=document.getElementById("menuContinueSub");
+  var can=gameActive||!!PENDING_SAVE;
+  if(btn)btn.disabled=!can;
+  if(sub){
+    if(gameActive)sub.textContent="返回当前对局 · 第 "+state.turn+" 回合";
+    else if(PENDING_SAVE)sub.textContent="第 "+(PENDING_SAVE.turn||1)+" 回合存档 · 读取上次进度";
+    else sub.textContent="暂无存档，请开始新战役";
+  }
+  updateCampaignScreen();
+}
+function openMainMenu(){
+  if(!state)return;
+  if(state.busy){say("敌方行动中，结束后再打开菜单。",true);render();return;}
+  PENDING_SAVE=readSave();
+  menuOpen=true;
+  var el=document.getElementById("menu");
+  if(!el)return;
+  el.hidden=false;
+  showMenuScreen("main");
+  refreshMenu();
+}
+function closeMenu(){
+  menuOpen=false;
+  var el=document.getElementById("menu");
+  if(el)el.hidden=true;
+  var root=document.getElementById("modalRoot");
+  if(root)root.innerHTML="";
+  if(gameActive)render();
+}
+function syncSettingsUI(){
+  var map={setFast:"fast",setAutoFit:"autoFit",setHints:"hints",setConfirmEnd:"confirmEnd",setAutoSave:"autoSave"};
+  Object.keys(map).forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.checked=!!SETTINGS[map[id]];
+  });
+}
+function startNewCampaign(force){
+  function run(){
+    safeDel("fl_save");
+    PENDING_SAVE=null;
+    hideResume();
+    init();
+    gameActive=true;
+    closeMenu();
+    if(SETTINGS.autoFit)fitMap(); else {state.zoom=1;applyZoom();}
+    render();
+    say("战役开始：守住 "+MAXT+" 回合，敌军控制 "+
+      ((enemyFactions()[0]&&enemyFactions()[0].gthr)||GTHR)+" 分城镇即失败。",true);
+  }
+  if(!force&&gameActive&&!state.over){
+    confirmDialog("开始新战役？","当前对局尚未结束，开始新战役会放弃当前进度。",run);
+  }else run();
+}
+function continueCampaign(){
+  if(gameActive){closeMenu();return;}
+  if(!PENDING_SAVE){say("没有可继续的存档。",true);return;}
+  var snap=PENDING_SAVE;
+  if(!applySave(snap)){
+    PENDING_SAVE=null;
+    refreshMenu();
+    say("存档与当前数据不匹配，已忽略。",true);
+    return;
+  }
+  gameActive=true;
+  closeMenu();
+  showResume();
+  if(SETTINGS.autoFit)fitMap();
+  render();
+  say("已恢复第 "+state.turn+" 回合。",true);
+}
+function confirmDialog(title,desc,onOk){
+  var root=document.getElementById("modalRoot");
+  if(!root)return;
+  root.innerHTML='<div class="overlay" id="cfOverlay"><div class="panel" style="max-width:440px">'+
+    '<h1 style="font-size:20px">'+esc(title)+'</h1><p>'+esc(desc)+'</p>'+
+    '<div class="btns"><button id="cfCancel">取消</button>'+
+    '<button id="cfOk" style="background:#2e5fa3;border-color:#4a7fc0">确定</button></div></div></div>';
+  var ov=root.querySelector("#cfOverlay");
+  function done(ok){
+    root.innerHTML="";
+    if(ok&&onOk)onOk();
+  }
+  ov.addEventListener("click",function(e){
+    if(e.target===ov||e.target.id==="cfCancel"){done(false);return;}
+    if(e.target.id==="cfOk"){done(true);return;}
+  });
+}
+function bindMenuEvents(){
+  var menu=document.getElementById("menu");
+  if(!menu)return;
+  menu.addEventListener("click",function(e){
+    var back=e.target.closest("[data-back]");
+    if(back){showMenuScreen("main");return;}
+    var item=e.target.closest("[data-menu]");
+    if(item){
+      var m=item.dataset.menu;
+      if(m==="continue")continueCampaign();
+      else if(m==="campaign")showMenuScreen("campaign");
+      else if(m==="settings")showMenuScreen("settings");
+      else if(m==="help")openHelp();
+      return;
+    }
+    if(e.target.id==="btnStartCampaign"){startNewCampaign();return;}
+    if(e.target.id==="setReset"){
+      SETTINGS=Object.assign({},DEFAULT_SETTINGS);
+      saveSettings();applySettings();syncSettingsUI();refreshMenu();
+      return;
+    }
+  });
+  menu.addEventListener("change",function(e){
+    var id=e.target.id;
+    var key=id==="setFast"?"fast":id==="setAutoFit"?"autoFit":id==="setHints"?"hints":
+      id==="setConfirmEnd"?"confirmEnd":id==="setAutoSave"?"autoSave":null;
+    if(!key)return;
+    SETTINGS[key]=!!e.target.checked;
+    saveSettings();applySettings();
+  });
+  var bm=document.getElementById("btnMenu");
+  if(bm)bm.addEventListener("click",openMainMenu);
+}
+/* ==========================================================================
    45 交互 / 弹窗 / 存档 / 启动
    ========================================================================== */
 function clearSel(){
@@ -1381,7 +1672,7 @@ function doAttack(){
   render();checkElim();autosave();
 }
 function onHex(c,r){
-  if(!state||state.over||state.busy||state.side!==PLAYER)return;
+  if(!state||state.over||state.busy||menuOpen||state.side!==PLAYER)return;
   var u=unitAt(c,r),sel=state.sel;
   if(sel&&state.previewTarget&&state.previewTarget.c===c&&state.previewTarget.r===r){doAttack();return;}
   if(sel&&state.targets.some(function(t){return t.c===c&&t.r===r;})){
@@ -1395,7 +1686,7 @@ function onHex(c,r){
   clearSel();state.hover={c:c,r:r};render();
 }
 function nextUnit(){
-  if(!state||state.busy||state.over)return;
+  if(!state||state.busy||state.over||menuOpen)return;
   var list=units.filter(function(u){return u.s===PLAYER&&u.stg>0&&!u.at;});
   if(!list.length){say("本回合已无剩余单位。",true);render();return;}
   list.sort(function(a,b){return (a.r-b.r)||(a.c-b.c);});
@@ -1421,9 +1712,17 @@ function undoMove(){
   select(u);say("已撤销移动。",true);autosave();
 }
 function endTurn(){
-  if(!state||state.busy)return;
+  if(!state||state.busy||menuOpen)return;
   if(state.side!==PLAYER){state.side=PLAYER;}
   if(state.over){showWin(state.over);return;}
+  if(SETTINGS.confirmEnd){
+    confirmDialog("结束回合？","交给 AI 行动后，本回合不能再操作。",function(){endTurnNow();});
+    return;
+  }
+  endTurnNow();
+}
+function endTurnNow(){
+  if(!state||state.busy||state.over)return;
   clearSel();state.busy=true;render();
   aiRound().catch(function(e){showErr(e);}).finally(function(){
     state.busy=false;render();
@@ -1452,7 +1751,7 @@ function doRecruit(side,type,c,r,rearSpot){
   return true;
 }
 function openRecruit(){
-  if(!state||state.over||state.busy||state.side!==PLAYER)return;
+  if(!state||state.over||state.busy||menuOpen||state.side!==PLAYER)return;
   var R=GD.recruit||{},cs=heldCities(PLAYER),keys=Object.keys(U);
   var h='<div class="panel"><h1 style="font-size:20px">征兵 · '+esc(fac(PLAYER).name)+'</h1>';
   h+='<p>兵源 <b style="color:#f2c14e">'+(state.mp[PLAYER]||0)+'</b> · 单位 '+alive(PLAYER).length+'/'+fac(PLAYER).cap+
@@ -1529,7 +1828,7 @@ function openHelp(){
 /* ---------- 胜负 ---------- */
 function win(w){
   if(!state||state.over)return true;
-  state.over=w;state.winner=w;clearSel();var mr=document.getElementById('modalRoot');if(mr)mr.innerHTML='';
+  state.over=w;state.winner=w;gameActive=false;clearSel();var mr=document.getElementById('modalRoot');if(mr)mr.innerHTML='';
   state.lines.push({t:"—— 对局结束 ——",h:true});
   render();showWin(w);
   return true;
@@ -1544,8 +1843,8 @@ function showWin(w){
   d.innerHTML="<h1>"+esc(title)+"</h1><div class='sub'>"+esc(sub)+"<br>交战 "+state.stats.attacks+" 次 · 损失 "+Object.keys(state.stats.losses||{}).map(function(k){return fac(k).short+" "+state.stats.losses[k];}).join(" / ")+"</div>";
   var btns=document.createElement("div");btns.style.display="flex";btns.style.gap="10px";btns.style.flexWrap="wrap";
   var b1=document.createElement("button");b1.textContent="再来一局";b1.style.background="#2e5fa3";b1.style.borderColor="#4a7fc0";
-  b1.onclick=function(){d.remove();safeDel("fl_save");init();hideResume();};
-  var b2=document.createElement("button");b2.textContent="查看地图";b2.onclick=function(){d.remove();};
+  b1.onclick=function(){d.remove();startNewCampaign(true);};
+  var b2=document.createElement("button");b2.textContent="查看地图";b2.onclick=function(){d.remove();gameActive=false;};
   btns.appendChild(b1);btns.appendChild(b2);d.appendChild(btns);
   document.body.appendChild(d);
 }
@@ -1595,7 +1894,7 @@ function init(){
     state.control[teamOf(f.id)]=0;
     state.peak[teamOf(f.id)]=0;
   });
-  state.fast=safeGet("fl_fast")==="1";
+  state.fast=!!SETTINGS.fast;
   state.zoom=1;
   var old=document.querySelector(".win");if(old)old.remove();
   document.getElementById("modalRoot").innerHTML="";
@@ -1622,7 +1921,7 @@ function serialUnits(){
   });
 }
 function saveState(){
-  if(!state||state.busy||state.over)return;
+  if(!state||state.busy||state.over||!SETTINGS.autoSave)return;
   var snap={v:2,hash:DATA_HASH,turn:state.turn,side:PLAYER,
     mp:state.mp,vp:state.vp,control:state.control,peak:state.peak,
     units:serialUnits(),zoom:state.zoom,fast:state.fast,
@@ -1643,7 +1942,7 @@ function applySave(snap){
   state.turn=Math.max(1,snap.turn|0);
   state.mp=snap.mp||{};state.vp=snap.vp||{};state.control=snap.control||{};
   FACTIONS.forEach(function(f){if(state.mp[f.id]===undefined)state.mp[f.id]=f.mp||0;});
-  state.peak=snap.peak||{};state.zoom=snap.zoom||1;state.fast=!!snap.fast;
+  state.peak=snap.peak||{};state.zoom=snap.zoom||1;state.fast=!!SETTINGS.fast;
   state.lines=(snap.lines||[]).slice(-14);state.stats=snap.stats||state.stats;
   if(!state.lines.length)state.lines.push({t:"已恢复上局。",h:true});
   else state.lines.push({t:"已恢复上局（第 "+state.turn+" 回合）。",h:true});
@@ -1683,6 +1982,7 @@ function loadJSONFile(f){
 /* ---------- 提示框 ---------- */
 var _tipEl=null;
 function showTip(ev,c,r){
+  if(!SETTINGS.hints)return;
   var el=_tipEl||document.getElementById("tip");
   if(!el)return;_tipEl=el;
   var t=terr(c,r),ct=cityAt(c,r),u=unitAt(c,r),h="";
@@ -1750,16 +2050,12 @@ function bindEvents(){
   document.getElementById("btnAtk").addEventListener("click",doAttack);
   document.getElementById("btnHelp").addEventListener("click",openHelp);
   document.getElementById("btnFast").addEventListener("click",function(){
-    state.fast=!state.fast;safeSet("fl_fast",state.fast?"1":"0");render();
+    SETTINGS.fast=!SETTINGS.fast;saveSettings();applySettings();render();
     say(state.fast?"快速 AI：开":"快速 AI：关",true);
   });
   document.getElementById("btnFit").addEventListener("click",fitMap);
-  document.getElementById("btnReset").addEventListener("click",function(){
-    safeDel("fl_save");hideResume();init();say("已重开。",true);render();
-  });
-  document.getElementById("btnNew").addEventListener("click",function(){
-    safeDel("fl_save");hideResume();init();say("已新开一局。",true);render();
-  });
+  document.getElementById("btnReset").addEventListener("click",function(){startNewCampaign();});
+  document.getElementById("btnNew").addEventListener("click",function(){startNewCampaign(true);});
   document.getElementById("btnLoad").addEventListener("click",function(){document.getElementById("fsLoad").click();});
   document.getElementById("fsLoad").addEventListener("change",function(e){
     var f=e.target.files&&e.target.files[0];if(!f)return;
@@ -1769,6 +2065,7 @@ function bindEvents(){
   document.getElementById("btnZo").addEventListener("click",function(){zoomBy(-0.15);});
   document.addEventListener("keydown",function(e){
     if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+    if(menuOpen){if(e.key==="Escape")closeMenu();return;}
     if(e.key==="Escape"){var r=document.getElementById("modalRoot");if(r&&r.innerHTML)r.innerHTML="";else{clearSel();render();}}
     else if(e.key===" "){e.preventDefault();endTurn();}
     else if(e.key==="n"||e.key==="N")nextUnit();
@@ -1789,17 +2086,20 @@ function boot(){
   var hthr=document.getElementById("hThr");if(hthr)hthr.textContent=GTHR;
   bindEvents();
   init();
-  var snap=null;
-  try{snap=JSON.parse(safeGet("fl_save")||"null");}catch(e){}
-  if(snap&&applySave(snap)){showResume();}
+  gameActive=false;
+  PENDING_SAVE=readSave();
   var wrap=document.getElementById("mapwrap");
   if(wrap&&window.innerWidth<760)state.zoom=clamp((wrap.clientWidth-12)/MAPW,0.3,1);
   render();
   /* 测试/调试入口（不参与游戏逻辑） */
   window.FL={get state(){return state;},get units(){return units;},get GD(){return GD;},
+    get settings(){return SETTINGS;},get gameActive(){return gameActive;},get menuOpen(){return menuOpen;},
     init:init,onHex:onHex,endTurn:endTurn,select:select,doAttack:doAttack,nextUnit:nextUnit,
     aiRound:aiRound,aiFactionTurn:aiFactionTurn,checkElim:checkElim,win:win,
+    openMainMenu:openMainMenu,closeMenu:closeMenu,startNewCampaign:startNewCampaign,continueCampaign:continueCampaign,
     get fac(){return fac;},get U(){return U;},get TOWNS(){return TOWNS;}};
+  bindMenuEvents();
+  openMainMenu();
 }
 boot();
 </script>
